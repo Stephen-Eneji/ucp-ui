@@ -1,7 +1,7 @@
-import { __ } from '@wordpress/i18n';
-import {useState} from "react"
+// import { __ } from '@wordpress/i18n';
 import ReactRender from "../helper-components/react-wrapper";
 import '@/styles/sass/admin.scss';
+import React from 'react';
 
 
 ReactRender(({...props}) => {
@@ -29,16 +29,16 @@ ReactRender(({...props}) => {
 
 	return (
 		<div className="wrap">
-			<h1> { __( 'Ultimate Crypto Widget', 'ultimate-crypto-widget' ) } </h1>
+			{/* <h1> { __( 'Ultimate Crypto Widget', 'ultimate-crypto-widget' ) } </h1> */}
 			<div className={"ucp-admin-display-main"}>
 				<div className={`ucp-admin-welcome`}>
 					<div className={`ucp-admin-logo`}>
 						<img src={props.png_logo} alt="logo" width="200" height="200"/>
 					</div>
 					<div className={`ucp-admin-welcome-message`} >
-						<p> { __( 'Welcome to the Ultimate Crypto Widget plugin.', 'ultimate-crypto-widget' ) } </p>
+						{/* <p> { __( 'Welcome to the Ultimate Crypto Widget plugin.', 'ultimate-crypto-widget' ) } </p> */}
 						{/*short description about the plugin*/}
-						<p> { __( 'This plugin allows you to display the current price of any cryptocurrency in your website.', 'ultimate-crypto-widget' ) } </p>
+						{/* <p> { __( 'This plugin allows you to display the current price of any cryptocurrency in your website.', 'ultimate-crypto-widget' ) } </p> */}
 						{/* helpful links */}
 						<div className={`ucp-admin-helpful-links`}>
 							{helpfulLinks.map((link, index) => (

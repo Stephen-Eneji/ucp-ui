@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React,{useState} from "react";
 import '@/styles/sass/coin-marquee.scss'
 import {UCPWidgetSetting, CoinData} from "../../types";
 import ReactRender from "../../helper-components/react-wrapper";

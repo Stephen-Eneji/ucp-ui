@@ -9,25 +9,183 @@
     </script>
     <script defer>
         function loadScript(url, settings = {} , callback = null) {
-        const script = document.createElement('script');
-        script.src = url;
-        script.onload = callback;
-        // add settings for things like async, defer, type, etc
-        Object.keys(settings).forEach(key => {
-            script[key] = settings[key];
-        });
-        document.head.appendChild(script);
+            const script = document.createElement('script');
+            script.src = url;
+            script.onload = callback;
+            // add settings for things like async, defer, type, etc
+            Object.keys(settings).forEach(key => {
+                script[key] = settings[key];
+            });
+            document.head.appendChild(script);
         }
 
+        // function to load style 
+        function loadStyle(url, settings = {} , callback = null) {
+            const style = document.createElement('link');
+            style.href = url;
+            style.rel = 'stylesheet';
+            style.onload = callback;
+            // add settings for things like async, defer, type, etc
+            Object.keys(settings).forEach(key => {
+                style[key] = settings[key];
+            });
+            document.head.appendChild(style);
+        }
+
+        // remove script
+        function removeScript(url) {
+            const script = document.querySelector(`script[src="${url}"]`);
+            if (script) {
+                script.remove();
+            }
+        }
+
+        // remove style
+        function removeStyle(url) {
+            const style = document.querySelector(`link[href="${url}"]`);
+            if (style) {
+                style.remove();
+            }
+        }
+
+        // load react and react-dom from node_modules
+        loadScript('node_modules/react/umd/react.development.js', { type: 'text/javascript' });
+        loadScript('node_modules/react-dom/umd/react-dom.development.js', { type: 'text/javascript' });
         loadScript('assets/react-build/vendors/index.js')
   </script>
 </head>
 <body>
+    <select id="ucp-select"></select>
 
     <div id="ucp-react"></div>
     
 </body>
 <script defer>
-    loadScript('assets/react-build/widgets/coin-marquee/index.js')
+    // loadScript('assets/react-build/widgets/coin-marquee/index.js')
+    const widgets = {
+    'crypto-price-picker-1': {
+        display_name: 'Crypto Price Label',
+        view: 'crypto-price-picker',
+        card: 'card-001',
+        pro: false,
+        params: ['coins'],
+        setting_params: ['count', 'orientation', 'default_currency']
+    },
+    'crypto-price-picker-2': {
+        display_name: 'Crypto Price Label (2)',
+        view: 'crypto-price-picker',
+        card: 'card-002',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'orientation', 'default_currency']
+    },
+    'crypto-price-picker-3': {
+        display_name: 'Crypto Price Label (3)',
+        view: 'crypto-price-picker',
+        card: 'card-003',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'orientation', 'default_currency']
+    },
+    'coin-marquee-1': {
+        display_name: 'Coin Marquee',
+        view: 'coin-marquee',
+        card: 'card-001',
+        pro: false,
+        params: ['coins'],
+        setting_params: ['count', 'card_width', 'parent_width', 'speed', 'default_currency']
+    },
+    'coin-marquee-2': {
+        display_name: 'Coin Marquee (2)',
+        view: 'coin-marquee',
+        card: 'card-002',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'card_width', 'parent_width', 'speed', 'default_currency']
+    },
+    'coin-marquee-3': {
+        display_name: 'Coin Marquee (3)',
+        view: 'coin-marquee',
+        card: 'card-003',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'card_width', 'parent_width', 'speed', 'no_of_days', 'default_currency', 'data_interval'],
+        includes: ['coin-gecko', 'numbers']
+    },
+    'crypto-price-table-1': {
+        display_name: 'Crypto Price Table',
+        view: 'crypto-price-table',
+        card: 'card-001',
+        pro: false,
+        params: ['coins'],
+        setting_params: ['count', 'parent_width', 'default_currency', 'search_placeholder']
+    },
+    'crypto-price-table-2': {
+        display_name: 'Crypto Price Table (2)',
+        view: 'crypto-price-table',
+        card: 'card-002',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'parent_width', 'default_currency', 'search_placeholder']
+    },
+    'crypto-date-change-table': {
+        display_name: 'Crypto Date Change Table',
+        view: 'crypto-date-change-table',
+        card: '',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'parent_width', 'default_currency', 'search_placeholder']
+    },
+    'price-slider-widget-1': {
+        display_name: 'Price Slider Widget',
+        view: 'price-slider-widget',
+        card: 'card-001',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'parent_width', 'default_currency', 'speed']
+    },
+    'price-slider-widget-2': {
+        display_name: 'Price Slider Widget (2)',
+        view: 'price-slider-widget',
+        card: 'card-002',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['count', 'parent_width', 'default_currency', 'speed']
+    },
+    'historical-price-chart': {
+        display_name: 'Historical Price Chart',
+        view: 'historical-price-chart',
+        card: 'card-001',
+        pro: false,
+        params: ['coins'],
+        setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
+    }
+    };
+    // load the select options
+    const select = document.getElementById('ucp-select');
+    Object.keys(widgets).forEach(key => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.text = widgets[key].display_name;
+        select.appendChild(option);
+    });
+
+    // add on change event to the select
+    select.addEventListener('change', (e) => {
+        const widget = widgets[e.target.value];
+        if (widget) {
+            const settings_param = {}
+            widget.setting_params.forEach(param => {
+                settings_param[param] = '';
+            });
+            window.ucpReactData.settings =  {
+                card : widget.card,
+                ...settings_param,
+                ...window.ucpReactData.settings
+            };
+            loadStyle(`assets/react-build/widgets/${widget.view}.css`);
+            loadScript(`assets/react-build/widgets/${widget.view}/index.js`);
+        }
+    });
 </script>
 </html>
