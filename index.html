@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        import Data from "./ucpdata.js";
+        window.ucpReactData = Data;
+    </script>
+    <script defer>
+        function loadScript(url, settings = {} , callback = null) {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = callback;
+        // add settings for things like async, defer, type, etc
+        Object.keys(settings).forEach(key => {
+            script[key] = settings[key];
+        });
+        document.head.appendChild(script);
+        }
+
+        loadScript('assets/react-build/vendors/index.js')
+  </script>
+</head>
+<body>
+
+    <div id="ucp-react"></div>
+    
+</body>
+<script defer>
+    loadScript('assets/react-build/widgets/coin-marquee/index.js')
+</script>
+</html>
