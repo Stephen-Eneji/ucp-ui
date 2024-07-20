@@ -19,10 +19,6 @@ export default function ReactRender(Children: ComponentType<any>) {
   const domNode = document.getElementById(ucpReactData.react_id);
   // Check if a root already exists for this react_id, or create a new one
   let root = renderedRoots[ucpReactData.react_id] || null;
-	console.log('Root:', root);
-	console.log('DOM Node:', domNode);
-	console.log('React ID:', ucpReactData.react_id);
-	console.log('Rendered Roots:', renderedRoots);
   if (domNode && !root) {
     root = createRoot(domNode);
     renderedRoots[ucpReactData.react_id] = root;
