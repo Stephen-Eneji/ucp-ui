@@ -27,3 +27,7 @@ package-lock.json
 # Logs
 logs/
 *.log
+
+
+assets/react-build/
+assets/react-build/*

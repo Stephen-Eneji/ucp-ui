@@ -52,8 +52,11 @@ export class UCPWPAPI {
 			throw new Error("Path not found");
 		}
 		let url = new URL(`/wp-json/${this.namespace}${path.endpoint}`, this.origin);
-		if(path.required_params){
+		if (path.required_params) {
 			path.required_params.forEach((param) => {
+				if(!params){
+					throw new Error("Missing required params");
+				}
 				if(!params[param]){
 					throw new Error("Missing required param: " + param);
 				}
@@ -62,6 +65,9 @@ export class UCPWPAPI {
 		}
 		if(path.required_body_params){
 			path.required_body_params.forEach((param) => {
+				if(!body){
+					throw new Error("Missing required body params");
+				}
 				if(!body[param]){
 					throw new Error("Missing required body param: " + param);
 				}
@@ -119,5 +125,5 @@ export class UCPWPAPI {
 
 // v1 of my api
 export const UCPAPIV1 = new UCPWPAPI("ultimate-crypto-widget", "v1")
-	.addPath('coins', 'GET', '/coins')
-	.addPath('coin-chart-data' , 'GET', '/coin-chart-data', ['coin_id', 'days'])
+	.addPath('coins', 'GET', '/coins.json')
+	.addPath('coin-chart-data' , 'GET', '/coin-chart-data.json', ['coin_id', 'days'])

@@ -178,10 +178,16 @@
             widget.setting_params.forEach(param => {
                 settings_param[param] = '';
             });
+            // map out null or empty string values
+            Object.keys(settings_param).forEach(key => {
+                if (settings_param[key] === null || settings_param[key] === '') {
+                    delete settings_param[key];
+                }
+            });
             window.ucpReactData.settings =  {
-                card : widget.card,
+                ...window.ucpReactData.settings,
                 ...settings_param,
-                ...window.ucpReactData.settings
+                card : widget.card,
             };
             loadStyle(`assets/react-build/widgets/${widget.view}.css`);
             loadScript(`assets/react-build/widgets/${widget.view}/index.js`);

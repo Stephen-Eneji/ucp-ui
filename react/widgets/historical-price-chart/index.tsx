@@ -1,4 +1,4 @@
-import {HTMLProps, useState, useEffect} from "react";
+import React, {HTMLProps, useState, useEffect} from "react";
 import '@/styles/sass/historical-price-chart.scss'
 import {UCPWidgetSetting, CoinData, GraphData} from "../../types";
 import ReactRender from "../../helper-components/react-wrapper";
@@ -15,10 +15,11 @@ Chart.register(CategoryScale);
 
 const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph = 15,...props} : {coinData: CoinData, currency_symbol?: string, no_of_days ?: number|string,  max_point_graph ?: number|string} & HTMLProps<HTMLDivElement>)  => {
 	const [graphData, setGraphData] = useState<GraphData[]>([]);
-	const [graphLabels, setGraphLabels] = useState([]);
+	const [graphLabels, setGraphLabels] = useState<string[]>([]);
 	const [graphFetchCount, setGraphFetchCount] = useState(0);
 	const graphColor = coinData.price_change_percentage_24h > 0 ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)'
 	// parse no of days and max point graph to integer if string is passed
+	console.log(`parsing no of days ${no_of_days} and max point graph ${max_point_graph}`);
 	no_of_days = typeof no_of_days === 'string' ? parseInt(no_of_days) : no_of_days;
 	max_point_graph = typeof max_point_graph === 'string' ? parseInt(max_point_graph) : max_point_graph;
 	const defaultDataSetSettings = {
@@ -66,7 +67,7 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 
 	// use effect to update the graph data from api /wp-json/ultimate-crypto-widget/v1/coin-chart-data?coin_id={coin.id} with axios
 	useEffect(() => {
-		console.log("useEffect called");
+		console.log("useEffect called , no of days ==>", no_of_days);
 		UCPAPIV1.fetchData<{prices : [number, number][]}>('coin-chart-data', {coin_id :coinData.id, days: no_of_days}).then((data) => {
 			let newData : ([number, number] | null)[] = data?.prices?.map((_price) => {
 				const time = new Date(_price?.[0]);
@@ -91,7 +92,7 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 			}
 			const prices = newData?.map((price) => price?.[1] || 0);
 			const days_time = newData?.map((price) => {
-				const time = new Date(price?.[0]);
+				const time = new Date(price?.[0] ?? '');
 				return time.toLocaleDateString();
 			});
 			// co0nsole.log prices

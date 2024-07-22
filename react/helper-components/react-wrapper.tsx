@@ -5,23 +5,24 @@ import { createRoot, Root } from 'react-dom/client';
 // Retrieve or initialize global data
 declare global {
   interface Window {
-	ucpReactData: Record<string, any>;
+	  ucpReactData: Record<string, any>;
+	  ucpRenderedRoots: Record<string, Root>;
   }
 }
 const ucpReactData = window.ucpReactData || {};
 console.log(ucpReactData);
 
 // Store references to rendered roots
-const renderedRoots: Record<string, Root> = {};
+window.ucpRenderedRoots = {};
 
 export default function ReactRender(Children: ComponentType<any>) {
   // Get the DOM node based on the react_id from ucpReactData
   const domNode = document.getElementById(ucpReactData.react_id);
   // Check if a root already exists for this react_id, or create a new one
-  let root = renderedRoots[ucpReactData.react_id] || null;
+  let root = window.ucpRenderedRoots[ucpReactData.react_id] || null;
   if (domNode && !root) {
     root = createRoot(domNode);
-    renderedRoots[ucpReactData.react_id] = root;
+    window.ucpRenderedRoots[ucpReactData.react_id] = root;
   }
 
   // Render the React component
