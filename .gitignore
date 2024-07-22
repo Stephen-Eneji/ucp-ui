@@ -13,12 +13,12 @@ build/
 .idea/
 
 # Compiled JavaScript
-*.js
-*.js.map
+*/react-build/*.js
+*/react-build/*.js.map
 
 # Compiled CSS
-*.css
-*.css.map
+*/react-build/*.css
+*/react-build/*.css.map
 
 # Dependency lock files
 yarn.lock
