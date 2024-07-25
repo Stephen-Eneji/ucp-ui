@@ -53,12 +53,44 @@
         loadScript('node_modules/react-dom/umd/react-dom.development.js', { type: 'text/javascript' });
         loadScript('assets/react-build/vendors/index.js')
   </script>
+  <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body{
+        /* make the content in the cneter with a padding left and right */
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+
+    }
+
+
+    main{
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    
+    .widget-select {
+        margin: 20px;
+        width: 100%;
+    }
+  </style>
 </head>
 <body>
-    <select id="ucp-select"></select>
-
-    <div id="ucp-react"></div>
-    
+    <main>
+        <div class="widget-select">
+            <select id="ucp-select"></select>
+        </div>
+        <div>
+            <div id="ucp-react"></div>
+        </div>
+    </main>
 </body>
 <script defer>
     // loadScript('assets/react-build/widgets/coin-marquee/index.js')
@@ -156,7 +188,23 @@
         display_name: 'Historical Price Chart',
         view: 'historical-price-chart',
         card: 'card-001',
-        pro: false,
+        pro: true,
+        params: ['coins'],
+        setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
+    },
+    'price-block-widget-1': {
+        display_name: 'Price Block Widget (1)',
+        view: 'price-block-widget',
+        card: '',
+        pro: true,
+        params: ['coins'],
+        setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
+    },
+    'price-block-widget-2': {
+        display_name: 'Price Block Widget (2)',
+        view: 'price-block-widget-2',
+        card: '',
+        pro: true,
         params: ['coins'],
         setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
     }
