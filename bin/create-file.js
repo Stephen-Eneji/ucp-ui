@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const yargs = require('yargs');
 
-const templateFilePath = path.join(__dirname, 'template.tsx');
+const templateFilePath = path.join(__dirname, 'template.txt');
 const reactWidgetPath = path.join(__dirname, '../react/widgets');
 const sassPath = path.join(__dirname, '../assets/styles/sass');
 
