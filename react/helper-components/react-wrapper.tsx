@@ -5,8 +5,8 @@ import { createRoot, Root } from 'react-dom/client';
 // Retrieve or initialize global data
 declare global {
   interface Window {
-	  ucpReactData: Record<string, any>;
-	  ucpRenderedRoots: Record<string, Root>;
+    ucpReactData: Record<string, any>;
+    ucpRenderedRoots: Record<string, Root>;
   }
 }
 const ucpReactData = window.ucpReactData || {};
@@ -15,7 +15,9 @@ console.log(ucpReactData);
 // Store references to rendered roots
 window.ucpRenderedRoots = {};
 
-export default function ReactRender(Children: ComponentType<any>) {
+export default function ReactRender<PropType extends React.JSX.IntrinsicAttributes = any>(
+  Children: ComponentType<PropType>
+) {
   // Get the DOM node based on the react_id from ucpReactData
   const domNode = document.getElementById(ucpReactData.react_id);
   // Check if a root already exists for this react_id, or create a new one
@@ -27,7 +29,8 @@ export default function ReactRender(Children: ComponentType<any>) {
 
   // Render the React component
   if (root) {
-	  root.render(<Children {...ucpReactData} />);
-	  console.log('React component rendered');
+    const prop: PropType = { ...ucpReactData as PropType };
+    root.render(<Children {...prop} />);
+    console.log('React component rendered');
   }
 }
