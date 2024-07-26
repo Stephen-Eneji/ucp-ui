@@ -3,6 +3,7 @@ import {HTMLProps, useEffect, useState} from "react";
 import {abbreviateNumber} from "../../../helper/helper";
 import Graph from "../../../helper-components/Graph";
 import {UCPAPIV1} from "../../../helper/api-helper";
+import React from "react";
 
 
 const Card003 = ({coinData, currency_symbol = "$", graph_days_count = 7, max_point_graph = 15, ...props} : {coinData: CoinData, currency_symbol?: string, graph_days_count ?: number, max_point_graph ?: number} & HTMLProps<HTMLDivElement>) => {
