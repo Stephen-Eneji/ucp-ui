@@ -2,34 +2,34 @@ import React from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-info-card.scss'
 
-ReactRender(({coins}) => {
+ReactRender(({ coins, settings }) => {
   return (
-    <div className="ucp-crypto-info-card">
+    <div className={`ucp-crypto-info-card ${settings.dark_mode ? 'ucp-dark-mode' : ''}`}>
       <div className="ucp-cic-main-body">
         {
-          [1, 2, 3, 4, 5, 6, 7, 10, 17, 18, 19].map((index) => (
-            <div className="ucp-cic-children-main">
+          coins.slice(0, settings.count ?? 10).map((coin, index) => (
+            <div className="ucp-cic-children-main" key={index}>
                 <div className="ucp-cic-children-backdrop">
                   <div className="ucp-cic-children-coin-logo">
-                    
+                    <img src={coin.image} alt={coin.name} />
                   </div>
                 </div>
               <div className="ucp-cic-children-main-cnt">
                 <div className="ucp-cic-children-coin-market-detail">
                   <div className="ucp-cic-children-coin-market-detail-content">
                     <div className="ucp-cic-children-coin-name">
-                      Bitcoin
+                      {coin.name}
                       <span className="ucp-cic-children-coin-symbol">
-                        (BTC)
+                        ({coin.symbol.toUpperCase()})
                       </span>
                     </div>
                     {/* rank */}
                     <div className="ucp-cic-children-coin-rank">
-                      Rank: {index}
+                      Rank: {coin.market_cap_rank}
                     </div>
                     {/* price */}
                     <div className="ucp-cic-children-coin-price">
-                        Price: $12345.67
+                      Price: {settings?.currency_symbol}{coin.current_price}
                     </div>
                   </div>
                 </div>

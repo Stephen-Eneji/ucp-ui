@@ -9,8 +9,9 @@ export default {
         "no_of_days": "no_of_days",
         "default_currency": "php",
         "data_interval": "data_interval",
-        "currency_symbol": "₱", 
+        "currency_symbol": "$", 
         'no_of_days': 7,
+        'dark_mode': true,
     },
     "coins": [
         {
