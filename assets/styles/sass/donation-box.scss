@@ -1,1 +1,56 @@
 /* Styles for donation-box */
+.donation-form-container {
+    background-color: #F0F0F0;
+    padding: 20px;
+    border-radius: 10px;
+
+    .donation-form-header {
+      display: flex;
+      justify-content:center;
+      margin-bottom: 20px;
+  
+      #dfh-span {
+        background-color: gainsboro;
+        padding: 5px;
+        margin: 2px;
+        border-radius: 5%;
+        justify-content: center;
+      }
+
+      img {
+        width: 30px;
+        height: 30px;
+        padding: 2px;
+      }
+    }
+  
+    .qr-code {
+      text-align: center;
+      margin-bottom: 20px;
+  
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  
+    .form {
+      text-align: center;
+  
+      p {
+        margin-bottom: 10px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    }
+  }
+  
+  // Responsive styles using media queries
+  @media (max-width: 768px) {
+    // Adjust styles for smaller screens
+  }
