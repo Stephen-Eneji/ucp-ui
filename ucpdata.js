@@ -12,6 +12,7 @@ export default {
         "currency_symbol": "$", 
         'no_of_days': 7,
         'dark_mode': true,
+        'search_placeholder' : "Search for a coin",
     },
     "coins": [
         {
