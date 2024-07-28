@@ -40,7 +40,7 @@ ReactRender(({ coins, settings }) => {
             </tr>
           </thead>
           <tbody>
-            {coinList.map((coin, index) => (
+            {coinList.slice(0, settings.count ?? 10).map((coin, index) => (
               <tr
                 key={index}
                 data-table-row-coin={`${coin.name}---${coin.symbol}`}
@@ -63,6 +63,7 @@ ReactRender(({ coins, settings }) => {
                 </td>
                 <td>
                   <PricePercentage
+                    arrowSize={12}
                     percentage={roundToSignificantFigures(
                       coin.price_change_percentage_24h ?? 0,
                       4
@@ -71,6 +72,7 @@ ReactRender(({ coins, settings }) => {
                 </td>
                 <td>
                   <PricePercentage
+                    arrowSize={12}
                     percentage={roundToSignificantFigures(
                       coin.price_change_percentage_7d_in_currency ?? 0,
                       4
@@ -79,6 +81,7 @@ ReactRender(({ coins, settings }) => {
                 </td>
                 <td>
                   <PricePercentage
+                    arrowSize={12}
                     percentage={roundToSignificantFigures(
                       coin.price_change_percentage_30d_in_currency ?? 0,
                       4

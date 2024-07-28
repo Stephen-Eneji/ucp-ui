@@ -71,7 +71,7 @@ ReactRender(({ coins, settings }) => {
                   {coin.current_price}
                 </td>
                 <td>
-                  <PricePercentage percentage={coin.price_change_percentage_24h} />
+                  <PricePercentage percentage={coin.price_change_percentage_24h} arrowSize={12} />
                 </td>
                 {isStyle2 && (
                   <>
