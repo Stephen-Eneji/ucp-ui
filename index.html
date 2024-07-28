@@ -93,6 +93,7 @@
     <main>
         <div class="widget-select">
             <select id="ucp-select"></select>
+            <button class="reload-button" id="reload-button">Reload</button>
         </div>
         <div>
             <div id="ucp-react"></div>
@@ -264,7 +265,9 @@
         setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
     },
     };
-    // load the select options
+    let lastSelectedWidget = null;
+
+    // Load the select options
     const select = document.getElementById('ucp-select');
     Object.keys(widgets).forEach(key => {
         const option = document.createElement('option');
@@ -273,15 +276,15 @@
         select.appendChild(option);
     });
 
-    // add on change event to the select
-    select.addEventListener('change', (e) => {
-        const widget = widgets[e.target.value];
+    // Function to load widget
+    function loadWidget(widgetKey) {
+        const widget = widgets[widgetKey];
         if (widget) {
             const settings_param = {}
             widget.setting_params.forEach(param => {
                 settings_param[param] = '';
             });
-            // map out null or empty string values
+            // Map out null or empty string values
             Object.keys(settings_param).forEach(key => {
                 if (settings_param[key] === null || settings_param[key] === '') {
                     delete settings_param[key];
@@ -294,6 +297,21 @@
             };
             loadStyle(`assets/react-build/widgets/${widget.view}.css`, {id:`react-build-style`})
             loadScript(`assets/react-build/widgets/${widget.view}/index.js`, {id:`react-build-script`})
+            // Store last selected widget
+            lastSelectedWidget = widgetKey;
+        }
+    }
+
+    // Add on change event to the select
+    select.addEventListener('change', (e) => {
+        loadWidget(e.target.value);
+    });
+
+    // Add click event to the reload button
+    const reloadButton = document.getElementById('reload-button');
+    reloadButton.addEventListener('click', () => {
+        if (lastSelectedWidget) {
+            loadWidget(lastSelectedWidget);
         }
     });
 </script>
