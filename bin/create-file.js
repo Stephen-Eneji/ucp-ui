@@ -42,7 +42,7 @@ const createComponent = async (name) => {
         const componentContent = templateContent.replace(/{the-name-passed}/g, name);
 
         await fs.writeFile(componentFilePath, componentContent, 'utf-8');
-        await fs.writeFile(sassFilePath, `/* Styles for ${name} */\n`, 'utf-8');
+        await fs.writeFile(sassFilePath, `/* Styles for ${name} */\n .ucp-${name}{\n}\n`, 'utf-8');
 
         console.log(`Component ${name} created successfully.`);
     } catch (error) {
