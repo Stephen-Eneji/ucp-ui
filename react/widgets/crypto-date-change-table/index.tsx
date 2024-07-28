@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import "@/styles/sass/crypto-date-change-table.scss";
-import { levenshteinDistance, roundToSignificantFigures, searchCoin } from "../../helper/helper";
+import { roundToSignificantFigures, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 
 ReactRender(({ coins, settings }) => {
+  settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
+  const [startCount, setStartCount] = useState<number>(0);
 
   const search = (e: any) => {
     const value = e.target.value;
-    setCoinList(searchCoin(value, coins.slice(0, settings.count ?? 10)));
+    setCoinList(
+      searchCoin(
+        value,
+        coins.slice(startCount, startCount + (settings.count ?? 10))
+      )
+    );
   };
+
+  useEffect(() => {
+    setCoinList(coins.slice(startCount, startCount + (settings.count ?? 10)));
+  }, [startCount]);
 
   let width = settings.parent_width;
   // if width does not end with % or px then add px
@@ -45,7 +56,7 @@ ReactRender(({ coins, settings }) => {
                 key={index}
                 data-table-row-coin={`${coin.name}---${coin.symbol}`}
               >
-                <td>{index + 1}</td>
+                <td>{index + 1 + startCount}</td>
                 <td>
                   <div className="crypto-price-table-name-info">
                     <div className="crypto-price-table-name-info-image">
@@ -92,6 +103,20 @@ ReactRender(({ coins, settings }) => {
             ))}
           </tbody>
         </table>
+        <div className="ucp-crypto-date-change-table-main-pagination">
+          <button
+            disabled={startCount === 0}
+            onClick={() => setStartCount(startCount - (settings.count ?? 10))}
+          >
+            Previous
+          </button>
+          <button
+            disabled={coins.length === startCount + (settings.count ?? 10)}
+            onClick={() => setStartCount(startCount + (settings.count ?? 10))}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-price-table.scss'
 import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/helper";
@@ -6,13 +6,30 @@ import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 
 ReactRender(({ coins, settings }) => {
+  settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
+  const [startCount, setStartCount] = useState<number>(0);
 
   const search = (e: any) => {
     const value = e.target.value;
-    setCoinList(searchCoin(value, coins.slice(0, settings.count ?? 10)));
+    // if value is empty, 
+    if (value?.length === 0) {
+      setCoinList(coins);
+      return;
+    }
+    setCoinList(
+      searchCoin(
+        value,
+        coins.slice(startCount, startCount + (settings.count ?? 10))
+      )
+    );
 
   };
+
+  useEffect(() => {
+    setCoinList(coins.slice(startCount, startCount + (settings.count ?? 10)));
+  }, [startCount]);
+
 
 
   let width = settings.parent_width;
@@ -49,41 +66,62 @@ ReactRender(({ coins, settings }) => {
             </tr>
           </thead>
           <tbody>
-            {coinList.slice(0, settings.count ?? 10).map((coin, index) => (
-              <tr
-                key={index}
-                data-table-row-coin={`${coin.name}---${coin.symbol}`}
-              >
-                <td>{index}</td>
-                <td>
-                  <div className="crypto-price-table-name-info">
-                    <div className="crypto-price-table-name-info-image">
-                      <img src={coin.image} alt={coin.name} />
+            {coinList
+              .slice(0, (settings.count ?? 10))
+              .map((coin, index) => (
+                <tr
+                  key={index}
+                  data-table-row-coin={`${coin.name}---${coin.symbol}`}
+                >
+                  <td>{index + 1 + startCount}</td>
+                  <td>
+                    <div className="crypto-price-table-name-info">
+                      <div className="crypto-price-table-name-info-image">
+                        <img src={coin.image} alt={coin.name} />
+                      </div>
+                      <div className="crypto-price-table-name-info-name">
+                        <span>{coin.name}</span>
+                        <span>{coin.symbol}</span>
+                      </div>
                     </div>
-                    <div className="crypto-price-table-name-info-name">
-                      <span>{coin.name}</span>
-                      <span>{coin.symbol}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  {settings.currency_symbol}
-                  {coin.current_price}
-                </td>
-                <td>
-                  <PricePercentage percentage={coin.price_change_percentage_24h} arrowSize={12} />
-                </td>
-                {isStyle2 && (
-                  <>
-                    <td>{abbreviateNumber(coin.market_cap)}</td>
-                    <td>{abbreviateNumber(coin.total_volume)}</td>
-                    <td>{abbreviateNumber(coin.circulating_supply)}</td>
-                  </>
-                )}
-              </tr>
-            ))}
+                  </td>
+                  <td>
+                    {settings.currency_symbol}
+                    {coin.current_price}
+                  </td>
+                  <td>
+                    <PricePercentage
+                      percentage={coin.price_change_percentage_24h}
+                      arrowSize={12}
+                    />
+                  </td>
+                  {isStyle2 && (
+                    <>
+                      <td>{abbreviateNumber(coin.market_cap)}</td>
+                      <td>{abbreviateNumber(coin.total_volume)}</td>
+                      <td>{abbreviateNumber(coin.circulating_supply)}</td>
+                    </>
+                  )}
+                </tr>
+              ))}
           </tbody>
         </table>
+        {isStyle2 && (
+          <div className="ucp-crypto-price-table-main-pagination">
+            <button
+              disabled={startCount === 0}
+              onClick={() => setStartCount(startCount - (settings.count ?? 10))}
+            >
+              Previous
+            </button>
+            <button
+              disabled={coins.length === startCount + (settings.count ?? 10)}
+              onClick={() => setStartCount(startCount + (settings.count ?? 10))}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
