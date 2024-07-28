@@ -3,6 +3,7 @@ import ReactRender from "../../helper-components/react-wrapper";
 import "@/styles/sass/crypto-date-change-table.scss";
 import { levenshteinDistance, roundToSignificantFigures, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
+import PricePercentage from "../../helper-components/PricePercentage";
 
 ReactRender(({ coins, settings }) => {
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
@@ -61,38 +62,28 @@ ReactRender(({ coins, settings }) => {
                   {coin.current_price}
                 </td>
                 <td>
-                  <i
-                    className={`fa-solid fa-arrow-${
-                      coin.price_change_percentage_24h > 0 ? "up" : "down"
-                    }`}
-                  ></i>
-                  {roundToSignificantFigures(coin.price_change_percentage_24h, 4)}
+                  <PricePercentage
+                    percentage={roundToSignificantFigures(
+                      coin.price_change_percentage_24h ?? 0,
+                      4
+                    )}
+                  />
                 </td>
                 <td>
-                  <i
-                    className={`fa-solid fa-arrow-${
-                      coin.price_change_percentage_7d_in_currency ?? 0 > 0
-                        ? "up"
-                        : "down"
-                    }`}
-                  ></i>
-                  {roundToSignificantFigures(
-                    coin.price_change_percentage_7d_in_currency ?? 0,
-                    4
-                  )}
+                  <PricePercentage
+                    percentage={roundToSignificantFigures(
+                      coin.price_change_percentage_7d_in_currency ?? 0,
+                      4
+                    )}
+                  />
                 </td>
                 <td>
-                  <i
-                    className={`fa-solid fa-arrow-${
-                      coin.price_change_percentage_30d_in_currency ?? 0 > 0
-                        ? "up"
-                        : "down"
-                    }`}
-                  ></i>
-                  {roundToSignificantFigures(
-                    coin.price_change_percentage_30d_in_currency ?? 0,
-                    4
-                  )}
+                  <PricePercentage
+                    percentage={roundToSignificantFigures(
+                      coin.price_change_percentage_30d_in_currency ?? 0,
+                      4
+                    )}
+                  />
                 </td>
               </tr>
             ))}

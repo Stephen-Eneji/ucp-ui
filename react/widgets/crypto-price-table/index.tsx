@@ -3,6 +3,7 @@ import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-price-table.scss'
 import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
+import PricePercentage from "../../helper-components/PricePercentage";
 
 ReactRender(({ coins, settings }) => {
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
@@ -70,12 +71,7 @@ ReactRender(({ coins, settings }) => {
                   {coin.current_price}
                 </td>
                 <td>
-                  <i
-                    className={`fa-solid fa-arrow-${
-                      coin.price_change_percentage_24h > 0 ? "up" : "down"
-                    }`}
-                  ></i>
-                  {coin.price_change_percentage_24h}
+                  <PricePercentage percentage={coin.price_change_percentage_24h} />
                 </td>
                 {isStyle2 && (
                   <>
