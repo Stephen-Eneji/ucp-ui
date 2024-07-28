@@ -1,4 +1,4 @@
-import {GraphData} from "../types";
+import {CoinData, GraphData} from "../types";
 
 export function abbreviateNumber(num: number) {
 	if (num >= 1e12) {
@@ -54,4 +54,42 @@ export function levenshteinDistance(str1, str2) {
 		}
 
 		return dp[len1][len2];
-	}
+}
+	
+export function searchCoin(needle: string, coins: CoinData[], minLevenshteinDistance: number = 3) {
+    const value = needle.toLowerCase();
+    // if empty then show all coins
+	if (value.length === 0) {
+		return coins;
+    }
+    const filtered = coins.filter((coin) => {
+      const nameDistance = levenshteinDistance(
+        coin.name.toLowerCase(),
+        value.toLowerCase()
+      );
+      const symbolDistance = levenshteinDistance(
+        coin.symbol.toLowerCase(),
+        value.toLowerCase()
+      );
+      return nameDistance <= minLevenshteinDistance || symbolDistance <= minLevenshteinDistance;
+    });
+    // sort my which has the highest match
+    // Combined sort function by both name and symbol distance
+    filtered.sort((a, b) => {
+      const nameDistanceA = levenshteinDistance(a.name.toLowerCase(), value);
+      const nameDistanceB = levenshteinDistance(b.name.toLowerCase(), value);
+      const symbolDistanceA = levenshteinDistance(
+        a.symbol.toLowerCase(),
+        value
+      );
+      const symbolDistanceB = levenshteinDistance(
+        b.symbol.toLowerCase(),
+        value
+      );
+
+      return (
+        nameDistanceA + symbolDistanceA - (nameDistanceB + symbolDistanceB)
+      );
+    });
+    return filtered;
+  };

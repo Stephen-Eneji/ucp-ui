@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-price-table.scss'
-import { abbreviateNumber, levenshteinDistance } from "../../helper/helper";
+import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 
 ReactRender(({ coins, settings }) => {
@@ -9,41 +9,8 @@ ReactRender(({ coins, settings }) => {
 
   const search = (e: any) => {
     const value = e.target.value;
-    // if empty then show all coins
-    if (value.length === 0) {
-      setCoinList(coins);
-      return;
-    }
-    const filtered = coins.slice(0, settings.count ?? 10).filter((coin) => {
-      const nameDistance = levenshteinDistance(
-        coin.name.toLowerCase(),
-        value.toLowerCase()
-      );
-      const symbolDistance = levenshteinDistance(
-        coin.symbol.toLowerCase(),
-        value.toLowerCase()
-      );
-      return nameDistance <= 3 || symbolDistance <= 3;
-    });
-    // sort my which has the highest match
-    // Combined sort function by both name and symbol distance
-    filtered.sort((a, b) => {
-      const nameDistanceA = levenshteinDistance(a.name.toLowerCase(), value);
-      const nameDistanceB = levenshteinDistance(b.name.toLowerCase(), value);
-      const symbolDistanceA = levenshteinDistance(
-        a.symbol.toLowerCase(),
-        value
-      );
-      const symbolDistanceB = levenshteinDistance(
-        b.symbol.toLowerCase(),
-        value
-      );
+    setCoinList(searchCoin(value, coins.slice(0, settings.count ?? 10)));
 
-      return (
-        nameDistanceA + symbolDistanceA - (nameDistanceB + symbolDistanceB)
-      );
-    });
-    setCoinList(filtered);
   };
 
 
