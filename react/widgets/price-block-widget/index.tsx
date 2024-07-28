@@ -26,6 +26,7 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
                     </div>
                     <div className="ucp-pbw-price-change-holder">
                       <PricePercentage
+                        arrowSize={15}
                         percentage={roundToSignificantFigures(
                           coin.price_change_percentage_24h ?? 0,
                           4

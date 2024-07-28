@@ -1,16 +1,29 @@
-import React from "react";
+import { ArrowDown, ArrowUp } from "iconsax-react";
+import React, { CSSProperties, HTMLAttributes } from "react";
 
-export default function PricePercentage({ percentage , ...props}) {
-    const isPositive = percentage > 0;
-    const arrow = isPositive ? "up" : "down";
-    return (
-      <div
-        {...props}
-         style={{ color: isPositive ? "green" : "red", ...props.styles }}
-      >
-        <i className={`fa-solid fa-arrow-${arrow}`}></i>
-        {percentage}
-      </div>
-    );
+interface PricePercentageProps extends HTMLAttributes<HTMLDivElement> {
+  percentage: number;
+  arrowSize?: number;
+  styles?: CSSProperties;
 }
-    
+
+const PricePercentage: React.FC<PricePercentageProps> = ({
+  percentage,
+  arrowSize = 30,
+  styles,
+  ...props
+}) => {
+  const isPositive = percentage > 0;
+  return (
+    <div {...props} style={{ color: isPositive ? "green" : "red", ...styles }}>
+      {isPositive ? (
+        <ArrowUp size={arrowSize} color="green" />
+      ) : (
+        <ArrowDown size={arrowSize} color="red" />
+      )}
+      {percentage}
+    </div>
+  );
+};
+
+export default PricePercentage;
