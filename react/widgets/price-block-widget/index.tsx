@@ -41,8 +41,8 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
                     {/* a set of div to switch currrency */}
                     <div className="ucp-pbw-currency-switcher-holder">
                       <div className="ucp-pbw-currency-switcher">
-                        <button className="ucp-pbw-currency-switcher-button">USD</button>
-                        <button className="ucp-pbw-currency-switcher-button">EUR</button>
+                        <button className="ucp-pbw-currency-switcher-button" type="button">USD</button>
+                        <button className="ucp-pbw-currency-switcher-button" type="button">EUR</button>
                       </div>
                     </div>
                   </div>

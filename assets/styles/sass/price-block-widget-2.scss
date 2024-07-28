@@ -1,4 +1,6 @@
 .ucp-price-block-widget-2 {
+    $ucp-pbw-border-color: #0077B6;
+
     * {
         box-sizing: border-box;
         margin: 0;
@@ -6,11 +8,91 @@
 
     }
 
+    > .ucp-pbw-2-main-body {
+        width: 100%;
+        height: max-content;
+        display: grid;
+        gap: 20px;
+        // Default grid layout for larger screens
+        grid-template-columns: repeat(auto-fit, minmax(334px, 1fr)); // Columns grow to fit the content
+        grid-template-rows: auto; // Rows adjust automatically based on content
+        row-gap: 30px;
+        place-items: center;
 
-    .ucp-pbw-welcome-message {
-        font-size: 20px;
-        font-weight: 700;
-        font-family: 'Poppins', sans-serif;
-        color: blue;
+        .ucp-pbw-main-card {
+            width: 334px;
+            height: 195px;
+            position: relative;
+            border: 1px solid $ucp-pbw-border-color;
+            border-radius: 5px;
+
+            > .ucp-pdw-card-backdrop-holder {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+
+                .ucp-pdw-card-backdrop-img {
+                    position: absolute;
+                    top: -38px;
+                    left: -66px;
+                    width: 160px;
+                    aspect-ratio: 1/1;
+                    border-radius: 50%;
+                    overflow: hidden;
+
+                    > img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+
+            > .ucp-pbw-main-content{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center; 
+
+                .ucp-pdw-coin-details-holder {
+                    flex-basis: 45%;
+                    width: 100%;
+                    height: 45%;
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+
+                    .ucp-pdw-coin-details-main {
+                        flex-basis: 70%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+
+                .ucp-pdw-coin-chart-holder{
+                    flex-basis: 55%;
+                    width: 100%;
+                    height: 45%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .ucp-pbw-cc-chart {
+                        width: 100%;
+                        height: 100%;
+
+
+                    }
+                }
+            }
+        }
     }
+
+
+
 }
