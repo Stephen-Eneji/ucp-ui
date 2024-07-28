@@ -16,7 +16,13 @@
     </script>
     <script defer>
         function loadScript(url, settings = {} , callback = null) {
-            const script = document.createElement('script');
+            const id = settings.id || url;
+            // if script already exists, remove it
+            let script = document.getElementById(id);
+            if (script) {
+                script.remove();
+            }
+            script = document.createElement('script');
             script.src = url;
             script.onload = callback;
             // add settings for things like async, defer, type, etc
@@ -28,31 +34,22 @@
 
         // function to load style 
         function loadStyle(url, settings = {} , callback = null) {
-            const style = document.createElement('link');
+            const id = settings.id || url;
+            // if style already exists, remove it
+            let style = document.getElementById(id);
+            if (style) {
+                style.remove();
+            }
+            // create new style element and append it to head
+            style = document.createElement('link');
             style.href = url;
-            style.rel = 'stylesheet';
+            style.rel ='stylesheet';
             style.onload = callback;
             // add settings for things like async, defer, type, etc
             Object.keys(settings).forEach(key => {
                 style[key] = settings[key];
             });
             document.head.appendChild(style);
-        }
-
-        // remove script
-        function removeScript(url) {
-            const script = document.querySelector(`script[src="${url}"]`);
-            if (script) {
-                script.remove();
-            }
-        }
-
-        // remove style
-        function removeStyle(url) {
-            const style = document.querySelector(`link[href="${url}"]`);
-            if (style) {
-                style.remove();
-            }
         }
 
         // load react and react-dom from node_modules
@@ -295,8 +292,8 @@
                 ...settings_param,
                 card : widget.card,
             };
-            loadStyle(`assets/react-build/widgets/${widget.view}.css`);
-            loadScript(`assets/react-build/widgets/${widget.view}/index.js`);
+            loadStyle(`assets/react-build/widgets/${widget.view}.css`, {id:`react-build-style`})
+            loadScript(`assets/react-build/widgets/${widget.view}/index.js`, {id:`react-build-script`})
         }
     });
 </script>
