@@ -24,7 +24,7 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
       : "rgba(255, 99, 132, 1)";
 
   const defaultDataSetSettings = {
-    backgroundColor: "rgba(255, 99, 132, 0.2)",
+    backgroundColor: coin.price_change_percentage_24h < 0 ? "rgba(255, 99, 132, 0.2)" : "rgba(75, 192, 192, 0.2)",
     borderColor: graphColor,
     borderWidth: 1,
     pointRadius: 6,
@@ -131,12 +131,18 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
                   {" "}
                   <PricePercentage
                     percentage={coin.price_change_percentage_24h}
-                    arrowSize={15}
+                    arrowSize={5}
+                    styles={{ display: "inline" , fontWeight: "bold", fontSize: "0.3125rem"}}
                   />{" "}
                 </span>{" "}
               </div>
             </div>
-            <div className="ucp-pdw-coin-details-second"></div>
+            <div className="ucp-pdw-coin-details-second">
+              <div className="ucp-pdw-coin-volume">
+                (24H Vol)
+                <div>{coin.total_volume}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="ucp-pdw-coin-chart-holder">

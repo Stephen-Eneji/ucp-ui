@@ -1,5 +1,7 @@
 .ucp-price-block-widget-2 {
     $ucp-pbw-border-color: #0077B6;
+    $ucp-text-color: #03045E;
+    font-family: 'Poppins', sans-serif;
 
     * {
         box-sizing: border-box;
@@ -71,6 +73,36 @@
                         height: 100%;
                         display: flex;
                         justify-content: space-between;
+
+
+                        .ucp-pdw-coin-details-first {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            gap: 4px;
+                            align-items: start;
+                            color: $ucp-text-color;
+                            font-weight: 600;
+                            font-size: 0.625rem; // 12px
+                            text-align: left ;
+                        }
+
+                        .ucp-pdw-coin-details-second{
+                            color: $ucp-text-color;
+                            font-size: 0.5rem; // 12px
+                            text-align: left ;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 4px;
+                            align-items: end;
+                            justify-content: center;
+                            text-align: center;
+                            padding: 0 5px;
+
+                            span {
+                                font-weight: 600;
+                            }
+                        }
                     }
                 }
 
