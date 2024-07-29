@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentType } from 'react';
 import { createRoot, Root } from 'react-dom/client';
+import { UCPWidgetSetting } from '../types';
 
 // Retrieve or initialize global data
 declare global {
@@ -15,8 +16,8 @@ console.log(ucpReactData);
 // Store references to rendered roots
 window.ucpRenderedRoots = {};
 
-export default function ReactRender<PropType extends React.JSX.IntrinsicAttributes = any>(
-  Children: ComponentType<PropType>
+export default function ReactRender<PropType = any>(
+  Children: ComponentType<PropType & { settings: UCPWidgetSetting } >
 ) {
   // Get the DOM node based on the react_id from ucpReactData
   const domNode = document.getElementById(ucpReactData.react_id);
@@ -29,7 +30,7 @@ export default function ReactRender<PropType extends React.JSX.IntrinsicAttribut
 
   // Render the React component
   if (root) {
-    const prop: PropType = { ...ucpReactData as PropType };
+    const prop = { ...ucpReactData as PropType &  React.JSX.IntrinsicAttributes & { settings: UCPWidgetSetting; } };
     root.render(<Children {...prop} />);
     console.log('React component rendered');
   }

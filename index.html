@@ -16,7 +16,13 @@
     </script>
     <script defer>
         function loadScript(url, settings = {} , callback = null) {
-            const script = document.createElement('script');
+            const id = settings.id || url;
+            // if script already exists, remove it
+            let script = document.getElementById(id);
+            if (script) {
+                script.remove();
+            }
+            script = document.createElement('script');
             script.src = url;
             script.onload = callback;
             // add settings for things like async, defer, type, etc
@@ -28,31 +34,22 @@
 
         // function to load style 
         function loadStyle(url, settings = {} , callback = null) {
-            const style = document.createElement('link');
+            const id = settings.id || url;
+            // if style already exists, remove it
+            let style = document.getElementById(id);
+            if (style) {
+                style.remove();
+            }
+            // create new style element and append it to head
+            style = document.createElement('link');
             style.href = url;
-            style.rel = 'stylesheet';
+            style.rel ='stylesheet';
             style.onload = callback;
             // add settings for things like async, defer, type, etc
             Object.keys(settings).forEach(key => {
                 style[key] = settings[key];
             });
             document.head.appendChild(style);
-        }
-
-        // remove script
-        function removeScript(url) {
-            const script = document.querySelector(`script[src="${url}"]`);
-            if (script) {
-                script.remove();
-            }
-        }
-
-        // remove style
-        function removeStyle(url) {
-            const style = document.querySelector(`link[href="${url}"]`);
-            if (style) {
-                style.remove();
-            }
         }
 
         // load react and react-dom from node_modules
@@ -96,6 +93,7 @@
     <main>
         <div class="widget-select">
             <select id="ucp-select"></select>
+            <button class="reload-button" id="reload-button">Reload</button>
         </div>
         <div>
             <div id="ucp-react"></div>
@@ -218,14 +216,6 @@
         params: ['coins'],
         setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
     }, 
-    'price-block-widget-3': {
-        display_name: 'Price Block Widget (3)',
-        view: 'price-block-widget-3',
-        card: '',
-        pro: true,
-        params: ['coins'],
-        setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
-    },
     'donation-box' : {
         display_name: 'Donation Box',
         view: 'donation-box',
@@ -267,7 +257,9 @@
         setting_params: ['coins', 'parent_width', 'default_currency', 'no_of_days', 'data_interval', 'dark_mode']
     },
     };
-    // load the select options
+    let lastSelectedWidget = null;
+
+    // Load the select options
     const select = document.getElementById('ucp-select');
     Object.keys(widgets).forEach(key => {
         const option = document.createElement('option');
@@ -276,15 +268,15 @@
         select.appendChild(option);
     });
 
-    // add on change event to the select
-    select.addEventListener('change', (e) => {
-        const widget = widgets[e.target.value];
+    // Function to load widget
+    function loadWidget(widgetKey) {
+        const widget = widgets[widgetKey];
         if (widget) {
             const settings_param = {}
             widget.setting_params.forEach(param => {
                 settings_param[param] = '';
             });
-            // map out null or empty string values
+            // Map out null or empty string values
             Object.keys(settings_param).forEach(key => {
                 if (settings_param[key] === null || settings_param[key] === '') {
                     delete settings_param[key];
@@ -295,8 +287,23 @@
                 ...settings_param,
                 card : widget.card,
             };
-            loadStyle(`assets/react-build/widgets/${widget.view}.css`);
-            loadScript(`assets/react-build/widgets/${widget.view}/index.js`);
+            loadStyle(`assets/react-build/widgets/${widget.view}.css`, {id:`react-build-style`})
+            loadScript(`assets/react-build/widgets/${widget.view}/index.js`, {id:`react-build-script`})
+            // Store last selected widget
+            lastSelectedWidget = widgetKey;
+        }
+    }
+
+    // Add on change event to the select
+    select.addEventListener('change', (e) => {
+        loadWidget(e.target.value);
+    });
+
+    // Add click event to the reload button
+    const reloadButton = document.getElementById('reload-button');
+    reloadButton.addEventListener('click', () => {
+        if (lastSelectedWidget) {
+            loadWidget(lastSelectedWidget);
         }
     });
 </script>
