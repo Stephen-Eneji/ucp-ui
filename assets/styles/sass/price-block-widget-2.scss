@@ -1,6 +1,7 @@
 .ucp-price-block-widget-2 {
     $ucp-pbw-border-color: #0077B6;
     $ucp-text-color: #03045E;
+    $ucp-dark-mode-bg: #1E1E1E;
     font-family: 'Poppins', sans-serif;
 
     * {
@@ -20,6 +21,15 @@
         grid-template-rows: auto; // Rows adjust automatically based on content
         row-gap: 30px;
         place-items: center;
+
+        .ucp-pbw-dark-mode {
+            background-color: $ucp-dark-mode-bg;
+            color: $ucp-text-color;
+
+            .ucp-pdw-coin-details-main {
+                color: #0077B6 !important;
+            }
+        }
 
         .ucp-pbw-main-card {
             width: 334px;
@@ -73,6 +83,7 @@
                         height: 100%;
                         display: flex;
                         justify-content: space-between;
+                        color: $ucp-text-color;
 
 
                         .ucp-pdw-coin-details-first {
@@ -81,14 +92,12 @@
                             justify-content: center;
                             gap: 4px;
                             align-items: start;
-                            color: $ucp-text-color;
                             font-weight: 600;
                             font-size: 0.625rem; // 12px
                             text-align: left ;
                         }
 
                         .ucp-pdw-coin-details-second{
-                            color: $ucp-text-color;
                             font-size: 0.5rem; // 12px
                             text-align: left ;
                             display: flex;

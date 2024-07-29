@@ -14,7 +14,7 @@ import { roundToSignificantFigures } from "../../helper/helper";
 Chart.register(CategoryScale);
 
 
-function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$" }) {
+function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$", dark_mode = false}) {
   const [graphData, setGraphData] = useState<GraphData[]>([]);
   const [graphLabels, setGraphLabels] = useState<string[]>([]);
   const [graphFetchCount, setGraphFetchCount] = useState(0);
@@ -109,7 +109,7 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
   }, [coin, graphFetchCount]);
 
   return (
-    <div className="ucp-pbw-main-card">
+    <div className={`ucp-pbw-main-card ${dark_mode ? 'ucp-pbw-dark-mode' : ''}`}>
       <div className="ucp-pdw-card-backdrop-holder">
         <div className="ucp-pdw-card-backdrop-img">
           <img src={coin.image} alt={coin.name} />
@@ -167,7 +167,7 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
     >
       <div className="ucp-pbw-2-main-body">
         {coins.slice(0, settings.count ?? 10).map((coin, index) => (
-          <Card key={index} coin={coin} no_of_days={settings.no_of_days} currency_symbol={settings.currency_symbol} />
+          <Card key={index} coin={coin} no_of_days={settings.no_of_days} currency_symbol={settings.currency_symbol} dark_mode={settings.dark_mode == true || settings.dark_mode == 'true' }/>
         ))}
       </div>
     </div>
