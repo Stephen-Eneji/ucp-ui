@@ -2,7 +2,7 @@
     $ucp-pbw-border-color: #0077B6;
     $ucp-text-color: #03045E;
     $ucp-dark-mode-bg: #1E1E1E;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif; 
 
     * {
         box-sizing: border-box;
@@ -16,7 +16,7 @@
         height: max-content;
         display: grid;
         gap: 20px;
-        // Default grid layout for larger screens
+        // Default grid layout for larger screens 
         grid-template-columns: repeat(auto-fit, minmax(334px, 1fr)); // Columns grow to fit the content
         grid-template-rows: auto; // Rows adjust automatically based on content
         row-gap: 30px;
@@ -52,7 +52,7 @@
                     width: 160px;
                     aspect-ratio: 1/1;
                     border-radius: 50%;
-                    overflow: hidden;
+                    overflow: hidden; 
 
                     > img {
                         width: 100%;
