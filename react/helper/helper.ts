@@ -92,4 +92,16 @@ export function searchCoin(needle: string, coins: CoinData[], minLevenshteinDist
       );
     });
     return filtered;
-  };
+};
+  
+
+
+// function to handle copying to clipboard
+export function copyToClipboard(text: string) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+}
