@@ -154,5 +154,38 @@
         }
       }
     }
+
+    >.ucp-db-platform-metamask-selected {
+      width: 100%;
+      height: 312px;
+      display: flex;
+      padding: 45px 37px;
+      gap: 27px;
+
+      >.ucp-db-platform-metamask-selected-qr-cnt {
+          width: 233px;
+          height: 100%;
+          display: grid;
+          place-items: center;
+      
+          >img {
+            width: 100%;
+            aspect-ratio: 1/1;
+          }
+        }
+
+      >.ucp-db-platform-metamask-selected-form-cnt {
+        width: calc(100% - (233px + 27px));
+        height: 100%;
+        display: grid;
+        place-items: center;
+
+        .ucp-db-platform-metamask-selected-form-main {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
   }
 }

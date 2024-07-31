@@ -34,15 +34,18 @@ export default {
         },
 
     ],
-    "payment_platforms": [
-        // meta mask 
-        {
-            "id": "metamask",
-            "name": "MetaMask",
-            "image": "https://metamask.io/img/metamask-fox.png",
-            "link": "https://metamask.io/"
-        },
-    ],
+    "metamask": {
+        "id": "metamask",
+        "name": "MetaMask",
+        "image": "https://metamask.io/img/metamask-fox.png",
+        "link": "https://metamask.io/", 
+        "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540",
+        "tag": "Donate With MetaMask",
+        "address": "0x30FC622428e7221944C8eDB63244b533785BA540",
+        "coins": [
+        ]
+    },
+    
     "coins": [
         {
             "id": "bitcoin",

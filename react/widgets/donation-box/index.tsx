@@ -112,7 +112,7 @@ const CryptoPayment = ({ coin }) => {
   );
 }
 
-ReactRender(({ crypto_payments, payment_platforms, settings }) => {
+ReactRender(({ crypto_payments, metamask, settings }) => {
   const [cryptos, setCryptos] = useState(crypto_payments);
   const [selectedCryptoIndex, setSelectedCryptoIndex] = useState(0);
 
@@ -123,7 +123,14 @@ ReactRender(({ crypto_payments, payment_platforms, settings }) => {
   return (
     <div className="ucp-donation-box">
       <div className="ucp-db-platform-selection-btn-cnt">
-        {crypto_payments?.map((platform, index) => (
+        {[
+          ...crypto_payments,
+          {
+            coin_name: "MetaMask",
+            coin_symbol: "",
+            coin_image: "/assets/images/metamask.svg",
+          },
+        ]?.map((platform, index) => (
           <button
             key={index}
             className={`ucp-db-platform-selection-btn ${
@@ -147,7 +154,61 @@ ReactRender(({ crypto_payments, payment_platforms, settings }) => {
         ))}
       </div>
       <div className="ucp-db-platform-selected-cnt">
-        <CryptoPayment coin={cryptos[selectedCryptoIndex]} />
+        {cryptos[selectedCryptoIndex] && (
+          <CryptoPayment coin={cryptos[selectedCryptoIndex]} />
+        )}
+        {/* meta mask */}
+        {selectedCryptoIndex >= crypto_payments.length && (
+          <div className="ucp-db-platform-metamask-selected">
+            <div className="ucp-db-platform-metamask-selected-qr-cnt">
+              <img
+                src={`https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540`}
+                alt="QR Code"
+                className=""
+              />
+            </div>
+            <div className="ucp-db-platform-metamask-selected-form-cnt">
+              <div className="ucp-db-platform-metamask-selected-form-main">
+                {/* header */}
+                <div className="ucp-db-platform-metamask-selected-form-header">
+                  Connect MetaMask wallet
+                </div>
+                {/* currency select */}
+                <div className="ucp-db-platform-metamask-selected-form-currency-select">
+                  <select
+                    name="currency"
+                    id="currency"
+                    className="ucp-db-platform-metamask-selected-form-currency-select-select"
+                  >
+                    <option value="ETH">Ethereum (ETH)</option>
+                    <option value="BNB">Binance Coin (BNB)</option>
+                  </select>
+                </div>
+                {/* amount */}
+                <div className="ucp-db-platform-metamask-selected-form-amount">
+                  <input
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    className="ucp-db-platform-metamask-selected-form-amount-input"
+                    placeholder="Amount"
+                  />
+                </div>
+                {/* connect */}
+                <div className="ucp-db-platform-metamask-selected-form-connect">
+                  <button className="ucp-db-platform-metamask-selected-form-connect-btn">
+                    Connect
+                  </button>
+                </div>
+                {/* info */}
+                <div className="ucp-db-platform-metamask-selected-form-info">
+                  Scan the QR Code or copy the address below into your wallet to send
+                  Ethereum
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
