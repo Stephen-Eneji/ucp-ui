@@ -46,13 +46,27 @@
 
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import "@/styles/sass/donation-box.scss";
 import { copyToClipboard } from "../../helper/helper";
 import { Copy } from "iconsax-react";
 
 const CryptoPayment = ({ coin }) => {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 3000);
+    }   
+  }, [copied]);
+
+  const handleCopyAddress = () => {
+    copyToClipboard(coin.address);
+    setCopied(true);
+  };
+
   return (
     <div className={`ucp-db-platform-crypto-selected `}>
       <div className="ucp-db-platform-crypto-selected-qr-cnt">
@@ -83,10 +97,14 @@ const CryptoPayment = ({ coin }) => {
             />
             <button
               className="ucp-db-platform-crypto-selected-form-input-btn"
-              onClick={() => copyToClipboard(coin.address)}
+              onClick={handleCopyAddress}
             >
               <Copy className="ucp-db-platform-crypto-selected-form-input-copy-icon" />
             </button>
+            <p
+              className={`ucp-db-platform-crypto-selected-form-input-copied`}>
+              {copied? "Copied" : ""}
+            </p>
           </div>
         </div>
       </div>
