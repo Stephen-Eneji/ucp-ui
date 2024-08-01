@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/donation-box-2.scss'
 import { Copy } from "iconsax-react";
+import { copyToClipboard } from "../../helper/helper";
 
 ReactRender(({ crypto_payments, metamask, settings }) => {
+  const [copied, setCopied] = useState<boolean | number>(false);
+
+  const handleCopyAddress = (address, index) => {
+    copyToClipboard(address);
+    setCopied(index);
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
+  };
   return (
     <div className="ucp-donation-box-2">
       {/* an array of card */}
@@ -41,14 +51,14 @@ ReactRender(({ crypto_payments, metamask, settings }) => {
                 value={platform.address}
                 readOnly
               />
-              <button className="ucp-db2-card-copy-btn">
+              <button className="ucp-db2-card-copy-btn" onClick={() => handleCopyAddress(platform.address, index)}>
                 <Copy className="ucp-db-platform-crypto-selected-form-input-copy-icon" />
               </button>
             </div>
             {/* additional info */}
             <div className="ucp-db2-card-additional-info">
               <div>
-                <span>Note:</span> {platform.additional_info}
+                { copied === index ? 'Copied' : (<><span>Note:</span> {platform.additional_info ?? `Send ${platform.coin_name} to the address above`}</> )}
               </div>
             </div>
           </div>
