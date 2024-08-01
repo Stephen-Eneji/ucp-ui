@@ -21,6 +21,7 @@
   ],
   "exclude": [
     "node_modules",                             // Exclude files from compilation
-    "**/*.spec.ts"                              // Exclude test files
+    "**/*.spec.ts" , 
+    "**/node_modules/*"                             // Exclude test files
   ]
 }

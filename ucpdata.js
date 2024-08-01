@@ -8,11 +8,44 @@ export default {
         "speed": "10000",
         "default_currency": "usd",
         "data_interval": "daily",
-        "currency_symbol": "$", 
+        "currency_symbol": "$",
         'no_of_days': 7,
         'dark_mode': true,
-        'search_placeholder' : "Search for a coin",
+        'search_placeholder': "Search for a coin",
     },
+    "crypto_payments": [
+        {
+            "coin": "bitcoin",
+            "coin_symbol": "BTC",
+            "coin_name": "Bitcoin",
+            "coin_image" : "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=1M5m1DuGw4Wyq1Nf8sfoKRM6uA4oREzpCX",
+            "tag": "Donate Bitcoin",
+            "address": "1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX"
+        },
+        {
+            "coin": "ethereum",
+            "coin_symbol": "ETH",
+            "coin_name": "Ethereum",
+            "coin_image" : "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1661747711",
+            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540",
+            "tag": "Donate Ethereum",
+            "address": "0x7ceB9193D7824Ab717a8d2d60e8e5e77f5309456"
+        },
+
+    ],
+    "metamask": {
+        "id": "metamask",
+        "name": "MetaMask",
+        "image": "https://metamask.io/img/metamask-fox.png",
+        "link": "https://metamask.io/", 
+        "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540",
+        "tag": "Donate With MetaMask",
+        "address": "0x30FC622428e7221944C8eDB63244b533785BA540",
+        "coins": [
+        ]
+    },
+    
     "coins": [
         {
             "id": "bitcoin",
