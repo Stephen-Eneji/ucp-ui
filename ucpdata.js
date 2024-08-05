@@ -19,18 +19,18 @@ export default {
             "coin_symbol": "BTC",
             "coin_name": "Bitcoin",
             "coin_image" : "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=1M5m1DuGw4Wyq1Nf8sfoKRM6uA4oREzpCX",
-            "tag": "Donate Bitcoin",
-            "address": "1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX"
+            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=bc1qyqhp90ha9u82r4l0jk855y4c90vsyjqfcmj2zr",
+            "tag": "Donate Bitcoin ",
+            "address": "bc1qyqhp90ha9u82r4l0jk855y4c90vsyjqfcmj2zr"
         },
         {
             "coin": "ethereum",
             "coin_symbol": "ETH",
             "coin_name": "Ethereum",
             "coin_image" : "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1661747711",
-            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540",
+            "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0xA6771abe616FEbDBB5073c092e8d95d2BF92a3C2",
             "tag": "Donate Ethereum",
-            "address": "0x7ceB9193D7824Ab717a8d2d60e8e5e77f5309456"
+            "address": "0xA6771abe616FEbDBB5073c092e8d95d2BF92a3C2"
         },
 
     ],
@@ -41,7 +41,7 @@ export default {
         "link": "https://metamask.io/", 
         "qr_code": "https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540",
         "tag": "Donate With MetaMask",
-        "address": "0x30FC622428e7221944C8eDB63244b533785BA540",
+        "address": "THIS SHOULD REDIRECT TO MM OR TRUST WALLET TO BUY",
         "coins": [
         ]
     },

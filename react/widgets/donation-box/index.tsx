@@ -76,7 +76,7 @@ const CryptoPayment = ({ coin }) => {
         <div className="ucp-db-platform-crypto-selected-form-main">
           {/* header */}
           <div className="ucp-db-platform-crypto-selected-form-header">
-            Donate {coin.coin_name} ({coin.coin_symbol}) to this address
+            Only send {coin.coin_name} ({coin.coin_symbol}) to this address
           </div>
           {/* info */}
           <div className="ucp-db-platform-crypto-selected-form-info">
@@ -85,12 +85,12 @@ const CryptoPayment = ({ coin }) => {
           </div>
           {/* tag */}
           <div className="ucp-db-platform-crypto-selected-form-tag">
-            Tag: Donation for {coin.coin_symbol}
+            Tag: Buy us Coffee 🙂
           </div>
           {/* input */}
           <div className="ucp-db-platform-crypto-selected-form-input">
             <input
-              type="text"
+              type="text" id="crypto-selected-form-input"
               value={coin.address}
               readOnly
               className="ucp-db-platform-crypto-selected-form-input-text"
