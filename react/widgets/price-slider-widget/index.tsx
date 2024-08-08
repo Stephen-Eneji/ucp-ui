@@ -15,7 +15,7 @@ Chart.register(CategoryScale);
 const getCard = (card: string) => {
 	switch (card) {
 		case 'card-001':
-			return Card001;
+			return Card001 ;
 		case 'card-002':
 			return Card002;
 		default:
