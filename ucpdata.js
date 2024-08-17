@@ -3216,6 +3216,6 @@ export default {
             "price_change_percentage_7d_in_currency": 16.046169127890263
         }
     ],
-    "ucp_render_component": "widgets/coin-marquee/index",
-    "react_id": "ucp-react"
+    "ucwp_render_component": "widgets/coin-marquee/index",
+    "react_id": "ucwp-react"
 }

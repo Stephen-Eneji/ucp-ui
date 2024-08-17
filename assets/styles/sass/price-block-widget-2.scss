@@ -1,7 +1,7 @@
-.ucp-price-block-widget-2 {
-    $ucp-pbw-border-color: #0077B6;
-    $ucp-text-color: #03045E;
-    $ucp-dark-mode-bg: #1E1E1E;
+.ucwp-price-block-widget-2 {
+    $ucwp-pbw-border-color: #0077B6;
+    $ucwp-text-color: #03045E;
+    $ucwp-dark-mode-bg: #1E1E1E;
     font-family: 'Poppins', sans-serif; 
 
     * {
@@ -11,7 +11,7 @@
 
     }
 
-    > .ucp-pbw-2-main-body {
+    > .ucwp-pbw-2-main-body {
         width: 100%;
         height: max-content;
         display: grid;
@@ -22,30 +22,30 @@
         row-gap: 30px;
         place-items: center;
 
-        .ucp-pbw-dark-mode {
-            background-color: $ucp-dark-mode-bg;
-            color: $ucp-text-color;
+        .ucwp-pbw-dark-mode {
+            background-color: $ucwp-dark-mode-bg;
+            color: $ucwp-text-color;
 
-            .ucp-pdw-coin-details-main {
+            .ucwp-pdw-coin-details-main {
                 color: #0077B6 !important;
             }
         }
 
-        .ucp-pbw-main-card {
+        .ucwp-pbw-main-card {
             width: 334px;
             height: 195px;
             position: relative;
-            border: 1px solid $ucp-pbw-border-color;
+            border: 1px solid $ucwp-pbw-border-color;
             border-radius: 5px;
 
-            > .ucp-pdw-card-backdrop-holder {
+            > .ucwp-pdw-card-backdrop-holder {
                 position: absolute;
                 inset: 0;
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
 
-                .ucp-pdw-card-backdrop-img {
+                .ucwp-pdw-card-backdrop-img {
                     position: absolute;
                     top: -38px;
                     left: -66px;
@@ -62,7 +62,7 @@
                 }
             }
 
-            > .ucp-pbw-main-content{
+            > .ucwp-pbw-main-content{
                 width: 100%;
                 height: 100%;
                 position: relative;
@@ -70,7 +70,7 @@
                 flex-direction: column;
                 justify-content: center; 
 
-                .ucp-pdw-coin-details-holder {
+                .ucwp-pdw-coin-details-holder {
                     flex-basis: 45%;
                     width: 100%;
                     height: 45%;
@@ -78,15 +78,15 @@
                     justify-content: end;
                     align-items: center;
 
-                    .ucp-pdw-coin-details-main {
+                    .ucwp-pdw-coin-details-main {
                         flex-basis: 70%;
                         height: 100%;
                         display: flex;
                         justify-content: space-between;
-                        color: $ucp-text-color;
+                        color: $ucwp-text-color;
 
 
-                        .ucp-pdw-coin-details-first {
+                        .ucwp-pdw-coin-details-first {
                             display: flex;
                             flex-direction: column;
                             justify-content: center;
@@ -97,7 +97,7 @@
                             text-align: left ;
                         }
 
-                        .ucp-pdw-coin-details-second{
+                        .ucwp-pdw-coin-details-second{
                             font-size: 0.5rem; // 12px
                             text-align: left ;
                             display: flex;
@@ -115,7 +115,7 @@
                     }
                 }
 
-                .ucp-pdw-coin-chart-holder{
+                .ucwp-pdw-coin-chart-holder{
                     flex-basis: 55%;
                     width: 100%;
                     height: 45%;
@@ -123,7 +123,7 @@
                     justify-content: center;
                     align-items: center;
 
-                    .ucp-pbw-cc-chart {
+                    .ucwp-pbw-cc-chart {
                         width: 100%;
                         height: 100%;
 

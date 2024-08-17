@@ -40,6 +40,12 @@ ReactRender(({ coins, settings }) => {
   return (
     <div className="ucwp-crypto-price-table" style={{ width: width }}>
       <div className="ucwp-crypto-price-table-main">
+          <input
+            type="text"
+            className="ucwp-crypto-price-table-main-search ucwp-crypto-search-input"
+            placeholder={`${settings.search_placeholder}`}
+            onChange={search}
+          />
         <table className={`ucwp-crypto-price-table-main-table`}>
           <thead>
             <tr>
@@ -47,6 +53,11 @@ ReactRender(({ coins, settings }) => {
               <th>#Name</th>
               <th>Price </th>
               <th>24H Change</th>
+                <>
+                  <th>Market Cap</th>
+                  <th> Volume</th>
+                  <th> Supply</th>
+                </>
             </tr>
           </thead>
           <tbody>
@@ -79,10 +90,29 @@ ReactRender(({ coins, settings }) => {
                       arrowSize={12}
                     />
                   </td>
+                    <>
+                      <td>{abbreviateNumber(coin.market_cap)}</td>
+                      <td>{abbreviateNumber(coin.total_volume)}</td>
+                      <td>{abbreviateNumber(coin.circulating_supply)}</td>
+                    </>
                 </tr>
               ))}
           </tbody>
         </table>
+          <div className="ucwp-crypto-price-table-main-pagination">
+            <button
+              disabled={startCount === 0}
+              onClick={() => setStartCount(startCount - (settings.count ?? 10))}
+            >
+              Previous
+            </button>
+            <button
+              disabled={coins.length === startCount + (settings.count ?? 10)}
+              onClick={() => setStartCount(startCount + (settings.count ?? 10))}
+            >
+              Next
+            </button>
+          </div>
       </div>
     </div>
   );

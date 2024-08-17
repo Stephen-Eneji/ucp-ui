@@ -4,7 +4,7 @@ import '@/styles/sass/multi-currencies-tab.scss'
 
 ReactRender(() => {
   return (
-    <div className="ucp-multi-currencies-tab">
+    <div className="ucwp-multi-currencies-tab">
              Hello this is multi-currencies-tab
     </div>
   )

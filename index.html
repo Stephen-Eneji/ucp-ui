@@ -20,7 +20,7 @@
      
     <script type="module">
         import Data from "./ucpdata.js";
-        window.ucpReactData = Data;
+        window.ucwpReactData = Data;
     </script>
     <script defer>
         function loadScript(url, settings = {} , callback = null) {
@@ -100,11 +100,11 @@
 <body>
     <main>
         <div class="widget-select">
-            <select id="ucp-select"></select>
+            <select id="ucwp-select"></select>
             <button class="reload-button" id="reload-button">Reload</button>
         </div>
         <div>
-            <div id="ucp-react"></div>
+            <div id="ucwp-react"></div>
         </div>
     </main>
 </body>
@@ -121,7 +121,7 @@
     },
     'crypto-price-picker-2': {
         display_name: 'Crypto Price Label (2)',
-        view: 'crypto-price-picker',
+        view: 'crypto-price-picker-pro',
         card: 'card-002',
         pro: true,
         params: ['coins'],
@@ -129,7 +129,7 @@
     },
     'crypto-price-picker-3': {
         display_name: 'Crypto Price Label (3)',
-        view: 'crypto-price-picker',
+        view: 'crypto-price-picker-pro',
         card: 'card-003',
         pro: true,
         params: ['coins'],
@@ -145,7 +145,7 @@
     },
     'coin-marquee-2': {
         display_name: 'Coin Marquee (2)',
-        view: 'coin-marquee',
+        view: 'coin-marquee-pro',
         card: 'card-002',
         pro: true,
         params: ['coins'],
@@ -153,7 +153,7 @@
     },
     'coin-marquee-3': {
         display_name: 'Coin Marquee (3)',
-        view: 'coin-marquee',
+        view: 'coin-marquee-pro',
         card: 'card-003',
         pro: true,
         params: ['coins'],
@@ -170,7 +170,7 @@
     },
     'crypto-price-table-2': {
         display_name: 'Crypto Price Table (2)',
-        view: 'crypto-price-table',
+        view: 'crypto-price-table-2',
         card: 'card-002',
         pro: true,
         params: ['coins'],
@@ -268,7 +268,7 @@
     let lastSelectedWidget = null;
 
     // Load the select options
-    const select = document.getElementById('ucp-select');
+    const select = document.getElementById('ucwp-select');
     Object.keys(widgets).forEach(key => {
         const option = document.createElement('option');
         option.value = key;
@@ -290,8 +290,8 @@
                     delete settings_param[key];
                 }
             });
-            window.ucpReactData.settings =  {
-                ...window.ucpReactData.settings,
+            window.ucwpReactData.settings =  {
+                ...window.ucwpReactData.settings,
                 ...settings_param,
                 card : widget.card,
             };
