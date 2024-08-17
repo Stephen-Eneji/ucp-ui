@@ -1,6 +1,6 @@
 import {useState} from "react";
 import '@/styles/sass/price-slider-widget.scss'
-import {UCPWidgetSetting, CoinData} from "../../types";
+import {CoinData} from "../../types";
 import ReactRender from "../../helper-components/react-wrapper";
 import Marquee from "react-fast-marquee";
 import Chart from "chart.js/auto";
@@ -34,17 +34,17 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
         : settings.parent_width;
 
     return (
-      <div className="ucp-price-slider-widget" style={{ width: parentWidth }}>
+      <div className="ucwp-price-slider-widget" style={{ width: parentWidth }}>
         {settings.card == "card-002" && (
-          <div className={"ucp-price-slider-control"}>
+          <div className={"ucwp-price-slider-control"}>
             <div
-              className="ucp-price-slider-control-btn"
+              className="ucwp-price-slider-control-btn"
               onClick={() => setDirection("left")}
             >
               <ArrowLeft2 size="32" variant="Outline" />
             </div>
             <div
-              className="ucp-price-slider-control-btn"
+              className="ucwp-price-slider-control-btn"
               onClick={() => setDirection("right")}
             >
               <ArrowRight2 size="32" variant="Outline" />
@@ -52,7 +52,7 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
           </div>
         )}
         <Marquee
-          className="ucp-price-slider-widget-marquee"
+          className="ucwp-price-slider-widget-marquee"
           style={{ display: "flex", gap: "10px" }}
           pauseOnHover={true}
           speed={animationDuration}
@@ -61,8 +61,8 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
           direction={direction}
         >
           <div
-            className={`ucp-price-slider-holder-cnt ${
-              settings.card == "card-002" ? "ucp-price-slider-dark" : ""
+            className={`ucwp-price-slider-holder-cnt ${
+              settings.card == "card-002" ? "ucwp-price-slider-dark" : ""
             }`}
           >
             {coinList

@@ -15,7 +15,7 @@ export const fetchDataText = async <T = any> (url: string | Request | URL, optio
 }
 
 // class tp handle my wp-json api class
-export class UCPWPAPI {
+export class ucwpWPAPI {
 	private readonly namespace: string;
 	private readonly origin =` ${window.location.origin}/`;
 	private paths : {
@@ -124,6 +124,6 @@ export class UCPWPAPI {
 }
 
 // v1 of my api
-export const UCPAPIV1 = new UCPWPAPI("ultimate-crypto-widget", "v1")
+export const ucwpAPIV1 = new ucwpWPAPI("ultimate-crypto-widget", "v1")
 	.addPath('coins', 'GET', '/coins.json')
 	.addPath('coin-chart-data' , 'GET', '/coin-chart-data.json', ['coin_id', 'days'])

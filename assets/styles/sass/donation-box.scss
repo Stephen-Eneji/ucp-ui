@@ -57,7 +57,7 @@
 
 
 
-.ucp-donation-box {
+.ucwp-donation-box {
   *{
     box-sizing: border-box;
     margin: 0;
@@ -71,11 +71,11 @@
   // poppins font
   font-family: poppins, sans-serif;
 
-  > .ucp-db-platform-selection-btn-cnt{
+  > .ucwp-db-platform-selection-btn-cnt{
     width: 100%;
     display: flex;
 
-    .ucp-db-platform-selection-btn {
+    .ucwp-db-platform-selection-btn {
       display: flex;
       width: 110px;
       height: 47px;
@@ -84,13 +84,13 @@
       border-radius: 10px;
       margin-bottom: 2px;
 
-      // if this also have class ucp-db-platform-selection-btn-selected highlight the border 
-      &.ucp-db-platform-selection-btn-selected {
+      // if this also have class ucwp-db-platform-selection-btn-selected highlight the border 
+      &.ucwp-db-platform-selection-btn-selected {
         border: 0.5px solid #0077B6;
         // background-color: #03045E;
       }
 
-      > .ucp-db-platform-selection-btn-img {
+      > .ucwp-db-platform-selection-btn-img {
         flex-basis: 35%;
         height: 100%;
         display: grid;
@@ -102,7 +102,7 @@
         }
       }
 
-      > .ucp-db-platform-selection-btn-text {
+      > .ucwp-db-platform-selection-btn-text {
         flex-basis: 65%;
         height: 100%;
         font-size: 12px;
@@ -118,7 +118,7 @@
 
   }
 
-  > .ucp-db-platform-selected-cnt{
+  > .ucwp-db-platform-selected-cnt{
     width: 100%;
     display: grid;
     place-items: center;
@@ -127,14 +127,14 @@
     border: 0.5px solid #0077B6;
 
 
-    > .ucp-db-platform-crypto-selected{
+    > .ucwp-db-platform-crypto-selected{
       width: 100%;
       height: 312px;
       display: flex;
       padding: 45px 37px;
       gap: 27px;
 
-      >.ucp-db-platform-crypto-selected-qr-cnt{
+      >.ucwp-db-platform-crypto-selected-qr-cnt{
         width: 233px;
         height: 100%;
         display: grid;
@@ -146,20 +146,20 @@
         }
       }
 
-      > .ucp-db-platform-crypto-selected-form-cnt{
+      > .ucwp-db-platform-crypto-selected-form-cnt{
         width: calc(100% - (233px + 27px));
         height: 100%;
         display: grid;
         font-size: 13pt;
         place-items: center;
 
-        .ucp-db-platform-crypto-selected-form-main {
+        .ucwp-db-platform-crypto-selected-form-main {
           width: 100%;
           display: flex;
           flex-direction: column;
         }
 
-        .ucp-db-platform-crypto-selected-form-input-text {
+        .ucwp-db-platform-crypto-selected-form-input-text {
           font-size: 20px;
           font-family: "Exo 2", sans-serif;
           font-optical-sizing: auto;
@@ -175,19 +175,19 @@
         }
       }
 
-      .ucp-db-platform-crypto-selected-form-input-btn {
+      .ucwp-db-platform-crypto-selected-form-input-btn {
         border: 0;
       }
     }
 
-    >.ucp-db-platform-metamask-selected {
+    >.ucwp-db-platform-metamask-selected {
       width: 100%;
       height: 312px;
       display: flex;
       padding: 45px 37px;
       gap: 27px;
 
-      >.ucp-db-platform-metamask-selected-qr-cnt {
+      >.ucwp-db-platform-metamask-selected-qr-cnt {
           width: 233px;
           height: 100%;
           display: grid;
@@ -199,13 +199,13 @@
           }
         }
 
-      >.ucp-db-platform-metamask-selected-form-cnt {
+      >.ucwp-db-platform-metamask-selected-form-cnt {
         width: calc(100% - (233px + 27px));
         height: 100%;
         display: grid;
         place-items: center;
 
-        .ucp-db-platform-metamask-selected-form-main {
+        .ucwp-db-platform-metamask-selected-form-main {
           width: 100%;
           display: flex;
           flex-direction: column;

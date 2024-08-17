@@ -18,7 +18,7 @@
 	}
   }
   
-  div.ucp-price-slider-widget {
+  div.ucwp-price-slider-widget {
 	--primary-color: #0077B6;
 	--secondary-color: #03045E;
 	--background-color: rgba(255, 255, 255, 0.8);
@@ -35,7 +35,7 @@
 	  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 	}
   
-	.ucp-price-slider-control {
+	.ucwp-price-slider-control {
 	  position: absolute;
 	  width: 100%;
 	  height: 100%;
@@ -44,7 +44,7 @@
 	  justify-content: space-between;
 	  pointer-events: none;
   
-	  .ucp-price-slider-control-btn {
+	  .ucwp-price-slider-control-btn {
 		height: 100%;
 		width: 40px;
 		display: grid;
@@ -70,20 +70,20 @@
 	  }
 	}
   
-	.ucp-price-slider-widget-marquee {
+	.ucwp-price-slider-widget-marquee {
 	  width: 100%;
 	  height: 100%;
 	  overflow: hidden;
 	  position: relative;
   
-	  .ucp-price-slider-dark {
-		.ucp-price-slider-card {
+	  .ucwp-price-slider-dark {
+		.ucwp-price-slider-card {
 		  background: rgba(53, 59, 62, 0.9) !important;
 		  color: var(--primary-color) !important;
 		}
 	  }
   
-	  div.ucp-price-slider-holder-cnt {
+	  div.ucwp-price-slider-holder-cnt {
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -92,7 +92,7 @@
 		gap: 15px;
 		padding: 15px;
   
-		div.ucp-price-slider-card {
+		div.ucwp-price-slider-card {
 		  position: relative;
 		  width: var(--card-width);
 		  height: var(--card-height);
@@ -108,7 +108,7 @@
 			box-shadow: 0 10px 20px rgba(0, 119, 182, 0.2);
 		  }
   
-		  div.ucp-price-slider-card-image {
+		  div.ucwp-price-slider-card-image {
 			position: absolute;
 			width: 80px;
 			aspect-ratio: 1/1;
@@ -147,7 +147,7 @@
 			}
 		  }
   
-		  div.ucp-price-slider-card-content {
+		  div.ucwp-price-slider-card-content {
 			width: 100%;
 			height: 100%;
 			display: flex;
@@ -169,12 +169,12 @@
 			  z-index: -1;
 			}
   
-			.ucp-price-slider-card-content-child {
+			.ucwp-price-slider-card-content-child {
 			  width: 100%;
 			  text-align: right;
 			}
   
-			.ucp-price-slider-card-content-title {
+			.ucwp-price-slider-card-content-title {
 			  font-weight: 500;
 			  font-family: 'Poppins', sans-serif;
 			  font-size: 16px;
@@ -184,7 +184,7 @@
 			  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 			}
   
-			.ucp-price-slider-card-content-price {
+			.ucwp-price-slider-card-content-price {
 			  font-weight: 700;
 			  font-family: 'Poppins', sans-serif;
 			  font-size: 18px;

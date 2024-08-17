@@ -8,23 +8,23 @@ import { roundToSignificantFigures } from "../../helper/helper";
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
   const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
   return (
-    <div className="ucp-price-block-widget">
+    <div className="ucwp-price-block-widget">
         {
           coinList.slice(0, settings.count ?? 10).map((coin, index) => {
             return (
-              <div key={index} className="ucp-price-block-widget-item">
-                <div className="ucp-price-block-item-backdrop">
-                  <div className="ucp-pbw-backdrop-icon-holder">
+              <div key={index} className="ucwp-price-block-widget-item">
+                <div className="ucwp-price-block-item-backdrop">
+                  <div className="ucwp-pbw-backdrop-icon-holder">
                     <img src={coin.image} alt={coin.name} />
                   </div>
                 </div>
-                <div className="ucp-price-block-widget-item-content">
-                  <div className="ucp-pbw-empty-holder"> </div>
-                  <div className="ucp-pbw-market-details-holder">
-                    <div className="ucp-pbw-price-holder">
+                <div className="ucwp-price-block-widget-item-content">
+                  <div className="ucwp-pbw-empty-holder"> </div>
+                  <div className="ucwp-pbw-market-details-holder">
+                    <div className="ucwp-pbw-price-holder">
                       {coin.current_price}
                     </div>
-                    <div className="ucp-pbw-price-change-holder">
+                    <div className="ucwp-pbw-price-change-holder">
                       <PricePercentage
                         arrowSize={15}
                         percentage={roundToSignificantFigures(
@@ -34,15 +34,15 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
                       />
                     </div>
                   </div>
-                  <div className="ucp-pbw-info-holder">
-                    <div className="ucp-pbw-coin-name">{coin.name}
-                      <span className="ucp-pbw-coin-symbol">({coin.symbol})</span>
+                  <div className="ucwp-pbw-info-holder">
+                    <div className="ucwp-pbw-coin-name">{coin.name}
+                      <span className="ucwp-pbw-coin-symbol">({coin.symbol})</span>
                     </div>
                     {/* a set of div to switch currrency */}
-                    <div className="ucp-pbw-currency-switcher-holder">
-                      <div className="ucp-pbw-currency-switcher">
-                        <button className="ucp-pbw-currency-switcher-button" type="button">USD</button>
-                        <button className="ucp-pbw-currency-switcher-button" type="button">EUR</button>
+                    <div className="ucwp-pbw-currency-switcher-holder">
+                      <div className="ucwp-pbw-currency-switcher">
+                        <button className="ucwp-pbw-currency-switcher-button" type="button">USD</button>
+                        <button className="ucwp-pbw-currency-switcher-button" type="button">EUR</button>
                       </div>
                     </div>
                   </div>

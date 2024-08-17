@@ -68,41 +68,41 @@ const CryptoPayment = ({ coin }) => {
   };
 
   return (
-    <div className={`ucp-db-platform-crypto-selected `}>
-      <div className="ucp-db-platform-crypto-selected-qr-cnt">
+    <div className={`ucwp-db-platform-crypto-selected `}>
+      <div className="ucwp-db-platform-crypto-selected-qr-cnt">
         <img src={coin.qr_code} alt="QR Code" className="" />
       </div>
-      <div className="ucp-db-platform-crypto-selected-form-cnt">
-        <div className="ucp-db-platform-crypto-selected-form-main">
+      <div className="ucwp-db-platform-crypto-selected-form-cnt">
+        <div className="ucwp-db-platform-crypto-selected-form-main">
           {/* header */}
-          <div className="ucp-db-platform-crypto-selected-form-header">
+          <div className="ucwp-db-platform-crypto-selected-form-header">
             Only send {coin.coin_name} ({coin.coin_symbol}) to this address
           </div>
           {/* info */}
-          <div className="ucp-db-platform-crypto-selected-form-info">
+          <div className="ucwp-db-platform-crypto-selected-form-info">
             Scan the QR Code or copy the address below into your wallet to send
             {` ${coin.coin_name}`}
           </div>
           {/* tag */}
-          <div className="ucp-db-platform-crypto-selected-form-tag">
+          <div className="ucwp-db-platform-crypto-selected-form-tag">
             Tag: Buy us Coffee 🙂
           </div>
           {/* input */}
-          <div className="ucp-db-platform-crypto-selected-form-input">
+          <div className="ucwp-db-platform-crypto-selected-form-input">
             <input
               type="text" id="crypto-selected-form-input"
               value={coin.address}
               readOnly
-              className="ucp-db-platform-crypto-selected-form-input-text"
+              className="ucwp-db-platform-crypto-selected-form-input-text"
             />
             <button
-              className="ucp-db-platform-crypto-selected-form-input-btn"
+              className="ucwp-db-platform-crypto-selected-form-input-btn"
               onClick={handleCopyAddress}
             >
-              <Copy className="ucp-db-platform-crypto-selected-form-input-copy-icon" />
+              <Copy className="ucwp-db-platform-crypto-selected-form-input-copy-icon" />
             </button>
             <p
-              className={`ucp-db-platform-crypto-selected-form-input-copied`}>
+              className={`ucwp-db-platform-crypto-selected-form-input-copied`}>
               {copied? "Copied" : ""}
             </p>
           </div>
@@ -121,8 +121,8 @@ ReactRender(({ crypto_payments, metamask, settings }) => {
   };
 
   return (
-    <div className="ucp-donation-box">
-      <div className="ucp-db-platform-selection-btn-cnt">
+    <div className="ucwp-donation-box">
+      <div className="ucwp-db-platform-selection-btn-cnt">
         {[
           ...crypto_payments,
           {
@@ -133,75 +133,75 @@ ReactRender(({ crypto_payments, metamask, settings }) => {
         ]?.map((platform, index) => (
           <button
             key={index}
-            className={`ucp-db-platform-selection-btn ${
+            className={`ucwp-db-platform-selection-btn ${
               selectedCryptoIndex == index
-                ? "ucp-db-platform-selection-btn-selected"
+                ? "ucwp-db-platform-selection-btn-selected"
                 : ""
             }`}
             onClick={() => handleCryptoSelection(index)}
           >
-            <div className="ucp-db-platform-selection-btn-img">
+            <div className="ucwp-db-platform-selection-btn-img">
               <img
                 src={platform.coin_image}
                 alt={platform.coin_name}
-                className="ucp-db-platform-selection-btn-img-icon"
+                className="ucwp-db-platform-selection-btn-img-icon"
               />
             </div>
-            <div className="ucp-db-platform-selection-btn-text">
+            <div className="ucwp-db-platform-selection-btn-text">
               {platform.coin_name} ({platform.coin_symbol})
             </div>
           </button>
         ))}
       </div>
-      <div className="ucp-db-platform-selected-cnt">
+      <div className="ucwp-db-platform-selected-cnt">
         {cryptos[selectedCryptoIndex] && (
           <CryptoPayment coin={cryptos[selectedCryptoIndex]} />
         )}
         {/* meta mask */}
         {selectedCryptoIndex >= crypto_payments.length && (
-          <div className="ucp-db-platform-metamask-selected">
-            <div className="ucp-db-platform-metamask-selected-qr-cnt">
+          <div className="ucwp-db-platform-metamask-selected">
+            <div className="ucwp-db-platform-metamask-selected-qr-cnt">
               <img
                 src={`https://www.bitcoinqrcodemaker.com/api/?style=ethereum&address=0x30FC622428e7221944C8eDB63244b533785BA540`}
                 alt="QR Code"
                 className=""
               />
             </div>
-            <div className="ucp-db-platform-metamask-selected-form-cnt">
-              <div className="ucp-db-platform-metamask-selected-form-main">
+            <div className="ucwp-db-platform-metamask-selected-form-cnt">
+              <div className="ucwp-db-platform-metamask-selected-form-main">
                 {/* header */}
-                <div className="ucp-db-platform-metamask-selected-form-header">
+                <div className="ucwp-db-platform-metamask-selected-form-header">
                   Connect MetaMask wallet
                 </div>
                 {/* currency select */}
-                <div className="ucp-db-platform-metamask-selected-form-currency-select">
+                <div className="ucwp-db-platform-metamask-selected-form-currency-select">
                   <select
                     name="currency"
                     id="currency"
-                    className="ucp-db-platform-metamask-selected-form-currency-select-select"
+                    className="ucwp-db-platform-metamask-selected-form-currency-select-select"
                   >
                     <option value="ETH">Ethereum (ETH)</option>
                     <option value="BNB">Binance Coin (BNB)</option>
                   </select>
                 </div>
                 {/* amount */}
-                <div className="ucp-db-platform-metamask-selected-form-amount">
+                <div className="ucwp-db-platform-metamask-selected-form-amount">
                   <input
                     type="number"
                     name="amount"
                     id="amount"
-                    className="ucp-db-platform-metamask-selected-form-amount-input"
+                    className="ucwp-db-platform-metamask-selected-form-amount-input"
                     placeholder="Amount"
                   />
                 </div>
                 {/* connect */}
-                <div className="ucp-db-platform-metamask-selected-form-connect">
-                  <button className="ucp-db-platform-metamask-selected-form-connect-btn">
+                <div className="ucwp-db-platform-metamask-selected-form-connect">
+                  <button className="ucwp-db-platform-metamask-selected-form-connect-btn">
                     Connect
                   </button>
                 </div>
                 {/* info */}
-                <div className="ucp-db-platform-metamask-selected-form-info">
+                <div className="ucwp-db-platform-metamask-selected-form-info">
                   Scan the QR Code or copy the address below into your wallet to send
                   Ethereum
                 </div>

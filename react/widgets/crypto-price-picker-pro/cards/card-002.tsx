@@ -2,7 +2,7 @@ import React from "react";
 import { CoinData } from "../../../types";
 import { HTMLProps, useState } from "react";
 
-const Card001 = ({
+const Card002 = ({
   coinData,
   currency_symbol = "$",
   ...props
@@ -11,17 +11,17 @@ const Card001 = ({
   currency_symbol?: string;
 } & HTMLProps<HTMLDivElement>) => {
   const [coin, setCoin] = useState(coinData);
-  props.className = `ucwp-crypto-picker-card-coin-bounding-box ${props.className}`;
+  props.className = `ucwp-crypto-picker-card-coin-bounding-box-card-002 ${props.className}`;
   return (
     <div {...props}>
       <div className="ucwp-crypto-picker-card-content-cnt">
         <div className="ucwp-crypto-picker-card-bounding-box-coin-logo">
-          <img src={coin?.image} alt={coin?.name} />
+          <img src={coinData?.image} alt={coinData?.name} />
         </div>
         <div className="ucwp-crypto-picker-card-bounding-box-coin-info">
           <div className="ucwp-crypto-picker-card-coin-name">
             <span>
-              {coin?.name}({coin?.symbol})
+              {coinData?.name}({coinData?.symbol})
             </span>
             <div className="ucwp-crypto-picker-card-coin-growth">
               <i
@@ -31,13 +31,13 @@ const Card001 = ({
                     : "fa-arrow-down"
                 }`}
               ></i>
-              <span>{coin?.price_change_percentage_24h}%</span>
+              <span>{coinData?.price_change_percentage_24h}%</span>
             </div>
           </div>
-          <div>
+          <div className="ucwp-crypto-picker-card-coin-price">
             <span className="ucwp-crypto-picker-card-coin-price">
               {currency_symbol}
-              {coin?.current_price}
+              {coinData?.current_price}
             </span>
           </div>
         </div>
@@ -46,4 +46,4 @@ const Card001 = ({
   );
 };
 
-export default Card001;
+export default Card002;

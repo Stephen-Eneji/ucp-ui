@@ -6,7 +6,7 @@ import PricePercentage from "../../helper-components/PricePercentage";
 import Graph from "../../helper-components/Graph";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { UCPAPIV1 } from "../../helper/api-helper";
+import { ucwpAPIV1 } from "../../helper/api-helper";
 import { roundToSignificantFigures } from "../../helper/helper";
 
 
@@ -42,7 +42,7 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
 
   useEffect(() => {
     console.log("useEffect called , no of days ==>", no_of_days);
-    UCPAPIV1.fetchData<{ prices: [number, number][] }>("coin-chart-data", {
+    ucwpAPIV1.fetchData<{ prices: [number, number][] }>("coin-chart-data", {
       coin_id: coin.id,
       days: no_of_days,
     })
@@ -109,22 +109,22 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
   }, [coin, graphFetchCount]);
 
   return (
-    <div className={`ucp-pbw-main-card ${dark_mode ? 'ucp-pbw-dark-mode' : ''}`}>
-      <div className="ucp-pdw-card-backdrop-holder">
-        <div className="ucp-pdw-card-backdrop-img">
+    <div className={`ucwp-pbw-main-card ${dark_mode ? 'ucwp-pbw-dark-mode' : ''}`}>
+      <div className="ucwp-pdw-card-backdrop-holder">
+        <div className="ucwp-pdw-card-backdrop-img">
           <img src={coin.image} alt={coin.name} />
         </div>
       </div>
-      <div className="ucp-pbw-main-content">
-        <div className="ucp-pdw-coin-details-holder">
-          <div className="ucp-pdw-coin-details-main">
-            <div className="ucp-pdw-coin-details-first">
-              <div className="ucp-pdw-coin-name">
+      <div className="ucwp-pbw-main-content">
+        <div className="ucwp-pdw-coin-details-holder">
+          <div className="ucwp-pdw-coin-details-main">
+            <div className="ucwp-pdw-coin-details-first">
+              <div className="ucwp-pdw-coin-name">
                 {coin.name}(
-                <span className="ucp-pdw-coin-symbol">{coin.symbol}</span>)
+                <span className="ucwp-pdw-coin-symbol">{coin.symbol}</span>)
               </div>
               {/* price */}
-              <div className="ucp-pdw-coin-price">
+              <div className="ucwp-pdw-coin-price">
                 {currency_symbol}
                 {coin.current_price}{" "}
                 <span>
@@ -137,18 +137,18 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
                 </span>{" "}
               </div>
             </div>
-            <div className="ucp-pdw-coin-details-second">
-              <div className="ucp-pdw-coin-volume">
+            <div className="ucwp-pdw-coin-details-second">
+              <div className="ucwp-pdw-coin-volume">
                 (24H Vol)
                 <div>{coin.total_volume}</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="ucp-pdw-coin-chart-holder">
+        <div className="ucwp-pdw-coin-chart-holder">
           <Graph
             chartData={graphData}
-            className="ucp-pbw-cc-chart"
+            className="ucwp-pbw-cc-chart"
             labels={graphLabels}
             defaultDataSetSettings={defaultDataSetSettings}
             options={GraphOptions}
@@ -162,10 +162,10 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
   return (
     <div
-      className="ucp-price-block-widget-2"
+      className="ucwp-price-block-widget-2"
       style={{ width: settings.parent_width }}
     >
-      <div className="ucp-pbw-2-main-body">
+      <div className="ucwp-pbw-2-main-body">
         {coins.slice(0, settings.count ?? 10).map((coin, index) => (
           <Card key={index} coin={coin} no_of_days={settings.no_of_days} currency_symbol={settings.currency_symbol} dark_mode={settings.dark_mode == true || settings.dark_mode == 'true' }/>
         ))}

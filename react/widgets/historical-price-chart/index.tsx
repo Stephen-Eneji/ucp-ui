@@ -1,12 +1,12 @@
 import React, {HTMLProps, useState, useEffect} from "react";
 import '@/styles/sass/historical-price-chart.scss'
-import {UCPWidgetSetting, CoinData, GraphData} from "../../types";
+import {UCWPWidgetSetting, CoinData, GraphData} from "../../types";
 import ReactRender from "../../helper-components/react-wrapper";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import {abbreviateNumber, roundToSignificantFigures} from "../../helper/helper";
 import Graph from "../../helper-components/Graph";
-import {UCPAPIV1} from "../../helper/api-helper";
+import {ucwpAPIV1} from "../../helper/api-helper";
 
 
 Chart.register(CategoryScale);
@@ -68,7 +68,7 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 	// use effect to update the graph data from api /wp-json/ultimate-crypto-widget/v1/coin-chart-data?coin_id={coin.id} with axios
 	useEffect(() => {
 		console.log("useEffect called , no of days ==>", no_of_days);
-		UCPAPIV1.fetchData<{prices : [number, number][]}>('coin-chart-data', {coin_id :coinData.id, days: no_of_days}).then((data) => {
+		ucwpAPIV1.fetchData<{prices : [number, number][]}>('coin-chart-data', {coin_id :coinData.id, days: no_of_days}).then((data) => {
 			let newData : ([number, number] | null)[] = data?.prices?.map((_price) => {
 				const time = new Date(_price?.[0]);
 				const date = new Date();
@@ -120,66 +120,78 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 
 	}, [coinData, graphFetchCount]);
 
-	props.className = `ucp-historical-price-chart-card ${props?.className}`;
+	props.className = `ucwp-historical-price-chart-card ${props?.className}`;
 	return (
 		<div {...props}>
-			<div className={'ucp-historical-price-chart-backdrop'} >
-				<div className={`ucp-hpc-bd-image-holder`}>
+			<div className={'ucwp-historical-price-chart-backdrop'} >
+				<div className={`ucwp-hpc-bd-image-holder`}>
 					<img src={coinData.image} alt={coinData.name} />
 				</div>
 			</div>
-			<div className={'ucp-historical-price-chart-content'}>
-				<div className={`ucp-hpc-content-header`}>
+			<div className={'ucwp-historical-price-chart-content'}>
+				<div className={`ucwp-hpc-content-header`}>
 				{/*	coin title and symbol*/}
-					<div className={`ucp-hpc-ch-title`}>
+					<div className={`ucwp-hpc-ch-title`}>
 						<span>{coinData.name} ({coinData.symbol.toUpperCase()}) </span>
 					</div>
 				{/*	section for market details */}
-					<div className={`ucp-hpc-ch-market-details`}>
-						<div className={`ucp-hpc-ch-md-item-cnt`}>
-							<div className={`ucp-hpc-ch-md-item`}>
+					<div className={`ucwp-hpc-ch-market-details`}>
+						<div className={`ucwp-hpc-ch-md-item-cnt`}>
+							<div className={`ucwp-hpc-ch-md-item`}>
 								<span>Market Cap:</span>
 								<span>{currency_symbol}{abbreviateNumber(coinData.market_cap)}</span>
 							</div>
-							<div className={`ucp-hpc-ch-md-item`}>
+							<div className={`ucwp-hpc-ch-md-item`}>
 								<span>Price:</span>
 								<span>{currency_symbol}{coinData.current_price}</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className={`ucp-hpc-content-small-details`}>
-					<div className={`ucp-hpc-csd-item`}>
+				<div className={`ucwp-hpc-content-small-details`}>
+					<div className={`ucwp-hpc-csd-item`}>
 						<span>Price:</span>
 						<span>{currency_symbol}{coinData.current_price}</span>
 					</div>
-					<div className={`ucp-hpc-csd-item`}>
+					<div className={`ucwp-hpc-csd-item`}>
 						<span>Volume:</span>
 						<span>{currency_symbol}{abbreviateNumber(coinData.total_volume)}</span>
 					</div>
 				</div>
-				<div className={`ucp-hpc-content-chart`}>
-					<Graph  chartData={graphData} className="ucp-hpc-cc-chart" labels={graphLabels} defaultDataSetSettings={defaultDataSetSettings} options={GraphOptions} />
+				<div className={`ucwp-hpc-content-chart`}>
+					<Graph  chartData={graphData} className="ucwp-hpc-cc-chart" labels={graphLabels} defaultDataSetSettings={defaultDataSetSettings} options={GraphOptions} />
 				</div>
 			</div>
 		</div>
 	)
 }
-ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCPWidgetSetting }) => {
-	const [coinList, _] = useState<CoinData[]>(coins ?? []);
-	const parentWidth = typeof settings.parent_width === 'number' ? `${settings.parent_width}px` : settings.parent_width;
-	const darkMode = settings?.dark_mode == 'true';
-	let coin = settings.coins;
-	console.log(coin)
-	return (
-		<div className="ucp-historical-price-chart-widget" style={{ width: parentWidth }}>
-			{
-				coinList.map((coin, index) => (
-					<Card key={index} coinData={coin} className={darkMode ? 'ucp-his-dark' : ''} no_of_days={settings.no_of_days} currency_symbol={settings.currency_symbol} />
-				))
-			}
-		</div>
-	);
-})
+ReactRender(
+  ({ coins, settings }: { coins: CoinData[]; settings: UCWPWidgetSetting }) => {
+    const [coinList, _] = useState<CoinData[]>(coins ?? []);
+    const parentWidth =
+      typeof settings.parent_width === "number"
+        ? `${settings.parent_width}px`
+        : settings.parent_width;
+    const darkMode = settings?.dark_mode == "true";
+    let coin = settings.coins;
+    console.log(coin);
+    return (
+      <div
+        className="ucwp-historical-price-chart-widget"
+        style={{ width: parentWidth }}
+      >
+        {coinList.map((coin, index) => (
+          <Card
+            key={index}
+            coinData={coin}
+            className={darkMode ? "ucwp-his-dark" : ""}
+            no_of_days={settings.no_of_days}
+            currency_symbol={settings.currency_symbol}
+          />
+        ))}
+      </div>
+    );
+  }
+);
 
 
