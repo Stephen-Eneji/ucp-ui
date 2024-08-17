@@ -1,4 +1,4 @@
-export type UCPWidgetSetting = {
+export type UCWPWidgetSetting = {
 	type : string,
 	count ?: number,
 	parent_width ?: number | `${number}%` | 'auto' | `${number}px`,

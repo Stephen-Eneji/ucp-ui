@@ -18,6 +18,14 @@ div.ucwp-crypto-price-picker-main {
 		transition: transform 0.3s, box-shadow 0.3s;
 		animation: fadeIn 0.5s ease-in-out;
 
+
+		&:hover {
+			transform: translateY(-10px);
+
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+		}
+
 		.ucwp-crypto-picker-card-content-cnt {
 			display: flex;
 			width: 100%;
@@ -32,11 +40,11 @@ div.ucwp-crypto-price-picker-main {
 				height: 100%;
 				border-radius: 100px;
 				transition: transform 0.3s;
-				
+
 
 				&:hover {
 					transform: rotate(360deg);
-					
+
 				}
 			}
 		}
@@ -51,11 +59,21 @@ div.ucwp-crypto-price-picker-main {
 			font-weight: 400;
 			font-size: 14px;
 			transition: all 0.3s;
-			
+
 
 			>* {
 				transition: all 0.3s;
 				/* Kept from the usual code */
+			}
+
+			&:hover .ucwp-crypto-picker-card-coin-name {
+				flex-basis: 100%;
+				flex-grow: 1;
+			}
+
+			&:hover .ucwp-crypto-picker-card-coin-price {
+				flex-basis: 0;
+				display: none;
 			}
 		}
 
@@ -71,7 +89,7 @@ div.ucwp-crypto-price-picker-main {
 			color: green;
 			font-weight: 600;
 			transition: color 0.3s;
-			
+
 
 			&:has(.fa-arrow-up) {
 				color: green;
@@ -105,13 +123,13 @@ div.ucwp-crypto-price-picker-main {
 		background: #fff;
 		transition: transform 0.3s, box-shadow 0.3s;
 		animation: fadeIn 0.5s ease-in-out;
-		
+
 
 		&:hover {
 			transform: translateY(-10px);
-			
+
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-			
+
 		}
 
 		.ucwp-crypto-picker-card-content-cnt {
@@ -128,11 +146,11 @@ div.ucwp-crypto-price-picker-main {
 				height: 100%;
 				border-radius: 100px;
 				transition: transform 0.3s;
-				
+
 
 				&:hover {
 					transform: rotate(360deg);
-					
+
 				}
 			}
 		}
@@ -147,7 +165,7 @@ div.ucwp-crypto-price-picker-main {
 			font-weight: 400;
 			font-size: 14px;
 			transition: all 0.3s;
-			
+
 
 			>* {
 				transition: all 0.3s;
@@ -177,7 +195,7 @@ div.ucwp-crypto-price-picker-main {
 			color: green;
 			font-weight: 600;
 			transition: color 0.3s;
-			
+
 
 			&:has(.fa-arrow-up) {
 				color: green;
@@ -214,7 +232,7 @@ div.ucwp-crypto-price-picker-main {
 		background: #1E1E1E;
 		gap: 3px;
 		animation: fadeIn 0.5s ease-in-out;
-		
+
 
 		.ucwp-crypto-picker-card-003-section {
 			width: 100%;
@@ -234,11 +252,11 @@ div.ucwp-crypto-price-picker-main {
 				width: 100%;
 				border-radius: 100px;
 				transition: transform 0.3s;
-				
+
 
 				&:hover {
 					transform: rotate(360deg);
-					
+
 				}
 			}
 		}
@@ -298,7 +316,7 @@ div.ucwp-crypto-price-picker-main {
 			display: flex;
 			font-weight: 700;
 			transition: color 0.3s;
-			
+
 
 			>div {
 				flex-basis: 50%;
@@ -306,7 +324,7 @@ div.ucwp-crypto-price-picker-main {
 				place-items: center;
 				color: #0077B6;
 				transition: color 0.3s;
-				
+
 			}
 		}
 	}

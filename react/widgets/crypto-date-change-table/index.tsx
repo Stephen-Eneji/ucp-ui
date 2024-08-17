@@ -31,15 +31,15 @@ ReactRender(({ coins, settings }) => {
   }
 
   return (
-    <div className="ucp-crypto-date-change-table" style={{ width: width }}>
-      <div className="ucp-crypto-date-change-table-main">
+    <div className="ucwp-crypto-date-change-table" style={{ width: width }}>
+      <div className="ucwp-crypto-date-change-table-main">
         <input
           type="text"
-          className="ucp-crypto-date-change-table-main-search ucp-crypto-search-input"
+          className="ucwp-crypto-date-change-table-main-search ucwp-crypto-search-input"
           placeholder={`${settings.search_placeholder}`}
           onChange={search}
         />
-        <table className={`ucp-crypto-date-change-table-main-table`}>
+        <table className={`ucwp-crypto-date-change-table-main-table`}>
           <thead>
             <tr>
               <th></th>
@@ -103,7 +103,7 @@ ReactRender(({ coins, settings }) => {
             ))}
           </tbody>
         </table>
-        <div className="ucp-crypto-date-change-table-main-pagination">
+        <div className="ucwp-crypto-date-change-table-main-pagination">
           <button
             disabled={startCount === 0}
             onClick={() => setStartCount(startCount - (settings.count ?? 10))}
