@@ -22,7 +22,11 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
                   <div className="ucwp-pbw-empty-holder"> </div>
                   <div className="ucwp-pbw-market-details-holder">
                     <div className="ucwp-pbw-price-holder">
-                      {coin.current_price}
+                      {settings.currency_symbol}
+                      {coin.current_price.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </div>
                     <div className="ucwp-pbw-price-change-holder">
                       <PricePercentage
@@ -35,18 +39,31 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
                     </div>
                   </div>
                   <div className="ucwp-pbw-info-holder">
-                    <div className="ucwp-pbw-coin-name">{coin.name}
-                      <span className="ucwp-pbw-coin-symbol">({coin.symbol})</span>
+                    <div className="ucwp-pbw-coin-name">
+                      {coin.name}
+                      <span className="ucwp-pbw-coin-symbol">
+                        ({coin.symbol})
+                      </span>
                     </div>
                     {/* a set of div to switch currrency */}
                     <div className="ucwp-pbw-currency-switcher-holder">
                       <div className="ucwp-pbw-currency-switcher">
-                        <button className="ucwp-pbw-currency-switcher-button" type="button">USD</button>
-                        <button className="ucwp-pbw-currency-switcher-button" type="button">EUR</button>
+                        <button
+                          className="ucwp-pbw-currency-switcher-button ucwp-pbw-currency-switcher-button-active"
+                          type="button"
+                        >
+                          USD
+                        </button>
+                        <button
+                          className="ucwp-pbw-currency-switcher-button"
+                          type="button"
+                        >
+                          EUR
+                        </button>
                       </div>
                     </div>
                   </div>
-                  </div>
+                </div>
               </div>
             );
           })

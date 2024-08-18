@@ -14,6 +14,7 @@ interface PricePercentageProps extends HTMLAttributes<HTMLDivElement> {
   percentage: number;
   arrowSize?: number | false;
   styles?: CSSProperties;
+  showPercentageSign?: boolean; 
 }
 
 /**
@@ -31,6 +32,7 @@ const PricePercentage: React.FC<PricePercentageProps> = ({
   percentage,
   arrowSize = 15,
   styles,
+  showPercentageSign = true,
   ...props
 }) => {
   const isPositive = percentage > 0;
@@ -42,7 +44,7 @@ const PricePercentage: React.FC<PricePercentageProps> = ({
         ) : (
           <ArrowDown size={arrowSize} color="red" />
         ))}
-      {percentage}
+      {percentage}{showPercentageSign && "%"}
     </div>
   );
 };
