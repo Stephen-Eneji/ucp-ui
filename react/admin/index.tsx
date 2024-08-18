@@ -42,7 +42,6 @@ ReactRender(({ ...props }) => {
                 "ultimate-crypto-widget"
               )}{" "}
             </p>
-            short description about the plugin
             <p>
               {" "}
               {__(
@@ -50,7 +49,6 @@ ReactRender(({ ...props }) => {
                 "ultimate-crypto-widget"
               )}{" "}
             </p>
-            helpful links
             <div className={`ucwp-admin-helpful-links`}>
               {helpfulLinks.map((link, index) => (
                 <a
