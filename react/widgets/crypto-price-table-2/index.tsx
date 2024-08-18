@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
-import '@/styles/sass/crypto-price-table.scss'
+import '@/styles/sass/crypto-price-table-2.scss'
 import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
