@@ -53,7 +53,7 @@ function useCoinbasePrimeTickerWebSocket(
         passphrase: passphrase,
         signature: "SIGNATURE", // Note: You should implement proper signature generation
         portfolio_id: portfolioId,
-        product_ids: symbols.map((symbol) => `${symbol}-USD`),
+        product_ids: symbols.map((symbol) => `${symbol.toUpperCase()}-USD`),
       };
       socket.send(JSON.stringify(subscribeMessage));
     };

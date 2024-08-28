@@ -45,7 +45,7 @@ function useBitMEXTickerWebSocket(
 
       const subscribeMessage = {
         op: "subscribe",
-        args: symbols.map((symbol) => `instrument:${symbol}USD`), // Removed USD from subscription message
+        args: symbols.map((symbol) => `instrument:${symbol.toUpperCase()}USD`),
       };
       socket.send(JSON.stringify(subscribeMessage));
     };

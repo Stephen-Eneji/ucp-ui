@@ -50,7 +50,7 @@ function useKrakenTickerWebSocket(
         params: {
           channel: "ticker",
           snapshot: true,
-          symbol: symbols.map((symbol) => `${symbol}/USD`),
+          symbol: symbols.map((symbol) => `${symbol.toUpperCase()}/USD`),
         },
         req_id: Date.now(),
       };
@@ -60,6 +60,7 @@ function useKrakenTickerWebSocket(
     socket.onmessage = (event) => {
       try {
         const response: KrakenWebSocketResponse = JSON.parse(event.data);
+        console.log("Kraken WebSocket message:", response);
         if (
           response.channel === "ticker" &&
           response.data &&
