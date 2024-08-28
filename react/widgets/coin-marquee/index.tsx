@@ -28,3 +28,4 @@ ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetti
 	);
 })
 
+
