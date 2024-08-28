@@ -108,7 +108,7 @@ function useKrakenTickerWebSocket(
     return () => {
       socket.close();
     };
-  }, [symbols, defaultCurrencyDollarRate]);
+  }, []);
 
   useEffect(() => {
     const cleanup = connectWebSocket();

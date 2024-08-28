@@ -109,7 +109,7 @@ function useBitMEXTickerWebSocket(
   useEffect(() => {
     const cleanup = connectWebSocket();
     return cleanup;
-  }, [connectWebSocket]);
+  }, []);
 
   return { connected, data: tickerData, error };
 }
