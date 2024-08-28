@@ -13,19 +13,19 @@ interface TickerData {
 }
 
 interface BitMEXWebSocketResponse {
-  channel: string;
-  type: string;
+  table: string;
+  action: "partial" | "update" | "insert" | "delete";
   data: Array<{
     symbol: string;
-    bid: number;
-    ask: number;
-    last: number;
-    volume: number;
-    high: number;
-    low: number;
-    change_pct: number;
-    [key: string]: any;
+    lastPriceProtected?: number;
+    openValue?: number;
+    fairPrice?: number;
+    markPrice?: number;
+    timestamp?: string;
   }>;
+  keys?: string[];
+  types?: { [key: string]: string };
+  filter?: { account?: number; symbol?: string };
 }
 
 function useBitMEXTickerWebSocket(
@@ -45,7 +45,7 @@ function useBitMEXTickerWebSocket(
 
       const subscribeMessage = {
         op: "subscribe",
-        args: symbols.map((symbol) => `instrument:${symbol}USD`),
+        args: symbols.map((symbol) => `instrument:${symbol}USD`), // Removed USD from subscription message
       };
       socket.send(JSON.stringify(subscribeMessage));
     };
@@ -53,37 +53,38 @@ function useBitMEXTickerWebSocket(
     socket.onmessage = (event) => {
       try {
         const response: BitMEXWebSocketResponse = JSON.parse(event.data);
-        if (
-          response.channel === "ticker" &&
-          response.data &&
-          response.data.length > 0
-        ) {
+        if (response.table === "instrument" && response.action === "update") {
           response.data.forEach((instrumentData) => {
-            const originalSymbol = instrumentData.symbol.replace("/USD", "");
-            setTickerData((prevData) => ({
-              ...prevData,
-              [originalSymbol]: {
-                symbol: originalSymbol,
-                lastPrice: (
-                  instrumentData.last * defaultCurrencyDollarRate
-                ).toFixed(2),
-                bidPrice: (
-                  instrumentData.bid * defaultCurrencyDollarRate
-                ).toFixed(2),
-                askPrice: (
-                  instrumentData.ask * defaultCurrencyDollarRate
-                ).toFixed(2),
-                volume: instrumentData.volume.toFixed(2),
-                high: (instrumentData.high * defaultCurrencyDollarRate).toFixed(
-                  2
-                ),
-                low: (instrumentData.low * defaultCurrencyDollarRate).toFixed(
-                  2
-                ),
-                changePct: instrumentData.change_pct.toFixed(2),
-                timestamp: new Date().toLocaleString(),
-              },
-            }));
+            if (instrumentData.symbol) {
+              const originalSymbol = instrumentData.symbol.replace("USD", "");
+              setTickerData((prevData) => ({
+                ...prevData,
+                [originalSymbol]: {
+                  symbol: originalSymbol,
+                  lastPrice: (
+                    (instrumentData.lastPriceProtected ?? 0) *
+                    defaultCurrencyDollarRate
+                  ).toFixed(2),
+                  bidPrice: (
+                    (instrumentData.fairPrice ?? 0) * defaultCurrencyDollarRate
+                  ).toFixed(2),
+                  askPrice: (
+                    (instrumentData.markPrice ?? 0) * defaultCurrencyDollarRate
+                  ).toFixed(2),
+                  volume: (instrumentData.openValue ?? 0).toFixed(2),
+                  high: (
+                    (instrumentData.lastPriceProtected ?? 0) *
+                    defaultCurrencyDollarRate
+                  ).toFixed(2),
+                  low: (
+                    (instrumentData.fairPrice ?? 0) * defaultCurrencyDollarRate
+                  ).toFixed(2),
+                  changePct: "N/A", // Update or calculate changePct if necessary
+                  timestamp:
+                    instrumentData.timestamp ?? new Date().toLocaleString(),
+                },
+              }));
+            }
           });
         }
       } catch (err) {
@@ -104,12 +105,12 @@ function useBitMEXTickerWebSocket(
     return () => {
       socket.close();
     };
-  }, [symbols, defaultCurrencyDollarRate]);
+  }, []);
 
   useEffect(() => {
     const cleanup = connectWebSocket();
     return cleanup;
-  }, []);
+  }, [connectWebSocket]);
 
   return { connected, data: tickerData, error };
 }

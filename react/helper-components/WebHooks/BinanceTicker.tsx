@@ -95,7 +95,7 @@ function useBinanceTickerWebSocket(
     return () => {
       socket.close();
     };
-  }, [symbols, defaultCurrencyDollarRate]);
+  }, []);
 
   useEffect(() => {
     const cleanup = connectWebSocket();
