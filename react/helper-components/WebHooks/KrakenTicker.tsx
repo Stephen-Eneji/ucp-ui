@@ -34,6 +34,7 @@ function useKrakenTickerWebSocket(
   symbols: string[],
   defaultCurrencyDollarRate = 1
 ) {
+  console.log("KrakenTicker", symbols);
   const [connected, setConnected] = useState(false);
   const [tickerData, setTickerData] = useState<Record<string, TickerData>>({});
   const [error, setError] = useState<string | null>(null);

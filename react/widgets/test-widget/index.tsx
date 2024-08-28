@@ -28,6 +28,35 @@ const TickerDisplay: React.FC = () => {
 
   return (
     <div>
+
+      {/* a table of column , platform, status. message */}
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Status</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Kraken</td>
+            <td>{krakenConnected ? 'Connected' : 'Disconnected'}</td>
+            <td>{krakenError  ? krakenError : 'Successfully connected'}</td>
+          </tr>
+          <tr>
+            <td>BitMEX</td>
+            <td>{bitmexConnected ? 'Connected' : 'Disconnected'}</td>
+            <td>{bitmexError  ? bitmexError : 'Successfully connected'}</td>
+          </tr>
+          <tr>
+            <td>Binance</td>
+            <td>{binanceConnected ? 'Connected' : 'Disconnected'}</td>
+            <td>{binanceError  ? binanceError : 'Successfully connected'}</td>
+          </tr>
+        </tbody>
+      </table>
+
       {/* Display Kraken error if it exists */}
       {krakenError && <div>Error (Kraken): {krakenError}</div>}
 
