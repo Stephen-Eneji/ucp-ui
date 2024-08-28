@@ -19,11 +19,12 @@ ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetti
 	const cardWidth = typeof settings.card_width === 'number' ? `${settings.card_width}px` : settings.card_width;
 	const animationDuration = (settings.speed || 3000) / (coinList?.length ?? 10)
 	const {connected, data, error} = useBinanceTickerWebSocket(coinList?.map(coin => coin.symbol).slice(0, settings.count), 1);
+	console.log(connected, data, error, "binance")
 	return (
 		<Marquee className="ucwp-coin-marquee-main-marquee-element" style={{ width: parentWidth, display:'flex', gap: '10px' }} pauseOnHover={true} speed={animationDuration} >
 			<div className={`ucwp-coin-marquee-main`}>
 				{coinList?.slice(0, settings.count).map((coin) => (
-						<Card key={coin.id} coinData={coin} style={{ width: cardWidth }} currency_symbol={settings.currency_symbol} websocketData={data[coin.symbol.toUpperCase()]} />
+						<Card key={coin.id} coinData={coin} style={{ width: cardWidth }} currency_symbol={settings.currency_symbol} />
 				))}
 			</div>
 		</Marquee>
