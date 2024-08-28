@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 function useKrakenTickerWebSocket(symbols, defaultCurrencyDollarRate = 1) {
   const [connected, setConnected] = useState(false);
   const [tickerData, setTickerData] = useState({});
-  const [error, setError] = useState<string|null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const connectWebSocket = useCallback(() => {
     try {
@@ -13,15 +13,15 @@ function useKrakenTickerWebSocket(symbols, defaultCurrencyDollarRate = 1) {
         console.log("Connected to Kraken WebSocket");
         setConnected(true);
 
-        symbols.forEach((symbol) => {
-          const subscribeMessage = {
-            method: "subscribe",
-            params: {
-              symbol: [`${symbol}/USD`],
-            },
-          };
-          socket.send(JSON.stringify(subscribeMessage));
-        });
+        const subscribeMessage = {
+          method: "subscribe",
+          params: {
+            channel: "ticker",
+              // symbol: [pair, "ETH/USD", "ADA/USD"],
+            symbol: symbols.map((symbol) => `${symbol}/USD`),
+          },
+        };
+        socket.send(JSON.stringify(subscribeMessage));
       };
 
       socket.onmessage = (event) => {

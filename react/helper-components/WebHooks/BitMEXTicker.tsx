@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 function useBitMEXTickerWebSocket(symbols, defaultCurrencyDollarRate = 1) {
   const [connected, setConnected] = useState(false);
   const [tickerData, setTickerData] = useState({});
-  const [error, setError] = useState<string|null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const connectWebSocket = useCallback(() => {
     try {

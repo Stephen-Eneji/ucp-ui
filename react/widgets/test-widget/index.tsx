@@ -55,7 +55,7 @@ const YourComponent = () => {
       ) : (
         <pre>{JSON.stringify(krakenData, null, 2)}</pre>
       )}
-    </div>
+    </div> 
   );
 };
 
