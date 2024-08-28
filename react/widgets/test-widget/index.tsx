@@ -1,62 +1,40 @@
 import React from "react";
-import {useBinanceTickerWebSocket, useBitMEXTickerWebSocket, useCoinbasePrimeTickerWebSocket, useKrakenTickerWebSocket} from "../../helper-components/WebHooks";
+import {useKrakenTickerWebSocket} from "../../helper-components/WebHooks";
 import ReactRender from "../../helper-components/react-wrapper";
 
-const YourComponent = () => {
-  const symbols = ["BTC", "ETH"];
+const KrakenTickerDisplay: React.FC = () => {
+  const { connected, data, error } = useKrakenTickerWebSocket([
+    "BTC",
+  ]);
 
-  const {
-    connected: binanceConnected,
-    data: binanceData,
-    error: binanceError,
-  } = useBinanceTickerWebSocket(symbols, 1600);
-  const {
-    connected: bitmexConnected,
-    data: bitmexData,
-    error: bitmexError,
-  } = useBitMEXTickerWebSocket(symbols, 1600);
-  const {
-    connected: coinbaseConnected,
-    data: coinbaseData,
-    error: coinbaseError,
-  } = useCoinbasePrimeTickerWebSocket(symbols, 1600);
-  const {
-    connected: krakenConnected,
-    data: krakenData,
-    error: krakenError,
-  } = useKrakenTickerWebSocket(symbols, 1600);
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!connected) {
+    return <div>Connecting to Kraken WebSocket...</div>;
+  }
 
   return (
     <div>
-      <h1>Binance Data</h1>
-      {binanceError ? (
-        <p>Error: {binanceError}</p>
-      ) : (
-        <pre>{JSON.stringify(binanceData, null, 2)}</pre>
-      )}
-
-      <h1>BitMEX Data</h1>
-      {bitmexError ? (
-        <p>Error: {bitmexError}</p>
-      ) : (
-        <pre>{JSON.stringify(bitmexData, null, 2)}</pre>
-      )}
-
-      <h1>Coinbase Prime Data</h1>
-      {coinbaseError ? (
-        <p>Error: {coinbaseError}</p>
-      ) : (
-        <pre>{JSON.stringify(coinbaseData, null, 2)}</pre>
-      )}
-
-      <h1>Kraken Data</h1>
-      {krakenError ? (
-        <p>Error: {krakenError}</p>
-      ) : (
-        <pre>{JSON.stringify(krakenData, null, 2)}</pre>
-      )}
-    </div> 
+      <h1>Kraken Ticker Data</h1>
+      {Object.entries(data).map(([symbol, tickerData]) => (
+        <div key={symbol}>
+          <h2>{symbol}</h2>
+          <p>Last Price: ${tickerData.last}</p>
+          <p>Ask: ${tickerData.ask}</p>
+          <p>Bid: ${tickerData.bid}</p>
+          <p>
+            24h Change: ${tickerData.change} ({tickerData.changePct}%)
+          </p>
+          <p>24h High: ${tickerData.high}</p>
+          <p>24h Low: ${tickerData.low}</p>
+          <p>24h Volume: {tickerData.volume}</p>
+          <p>Last Updated: {tickerData.timestamp}</p>
+        </div>
+      ))}
+    </div>
   );
 };
 
-ReactRender(YourComponent);
+ReactRender(KrakenTickerDisplay);
