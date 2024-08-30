@@ -1,10 +1,15 @@
 import {CoinData} from "../../../types";
-import {HTMLProps, useState} from "react";
+import {HTMLProps, useEffect, useState} from "react";
 import {abbreviateNumber} from "../../../helper/helper";
 import React from "react";
 
 const Card002 = ({coinData, currency_symbol = "$", ...props} : {coinData: CoinData, currency_symbol?: string} & HTMLProps<HTMLDivElement>) => {
 	const [coin, setCoin] = useState(coinData);
+
+	useEffect(() => {
+		setCoin(coinData);
+	}, [coinData]);
+
 	props.className = `ucwp-coin-marquee-coin-card-bounding-box crypto-price-card ucwp-marquee-content ${props.className}`;
 	return (
 		<div {...props}>
