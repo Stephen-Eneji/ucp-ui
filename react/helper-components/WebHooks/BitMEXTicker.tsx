@@ -51,7 +51,7 @@ function useBitMEXTickerWebSocket(
               setTickerData((prevData) => ({
                 ...prevData,
                 [originalSymbol]: {
-                  symbol: originalSymbol,
+                  symbol: originalSymbol.toLowerCase(),
                   current_price:
                     (instrumentData.lastPriceProtected ?? 0) *
                     defaultCurrencyDollarRate,

@@ -61,7 +61,7 @@ function useKrakenTickerWebSocket(
             setTickerData((prevData) => ({
               ...prevData,
               [originalSymbol]: {
-                symbol: originalSymbol,
+                symbol: originalSymbol.toLowerCase(),
                 current_price: tickerUpdate.last * defaultCurrencyDollarRate,
                 total_volume: tickerUpdate.volume,
                 high_24h: tickerUpdate.high * defaultCurrencyDollarRate,

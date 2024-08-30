@@ -51,7 +51,7 @@ function useBinanceTickerWebSocket(
         setTickerData((prevData) => ({
           ...prevData,
           [originalSymbol]: {
-            symbol: originalSymbol,
+            symbol: originalSymbol.toLowerCase(),
             current_price:
               parseFloat(data.lastPrice) * defaultCurrencyDollarRate,
             total_volume: parseFloat(data.volume),
