@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUp } from "iconsax-react";
-import React, { CSSProperties, HTMLAttributes } from "react";
+import React, { CSSProperties, HTMLAttributes, useEffect, useState } from "react";
 
 /**
  * Props for the PricePercentage component.
@@ -35,7 +35,14 @@ const PricePercentage: React.FC<PricePercentageProps> = ({
   showPercentageSign = true,
   ...props
 }) => {
-  const isPositive = percentage > 0;
+  const [isPositive, setIsPositive] = useState<boolean>(percentage >= 0);
+  const [lastPercentage, setLastPercentage] = useState<number>(0);
+
+  useEffect(() => {
+    setIsPositive(percentage >= lastPercentage);
+    setLastPercentage(percentage);
+  }, [percentage]);
+
   return (
     <div {...props} style={{ color: isPositive ? "green" : "red", ...styles }}>
       {arrowSize !== false &&
