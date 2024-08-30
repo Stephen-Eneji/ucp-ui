@@ -1,14 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-
-interface TickerData {
-  symbol: string;
-  current_price?: number;
-  total_volume?: number;
-  high_24h?: number;
-  low_24h?: number;
-  price_change_percentage_24h?: number;
-  last_updated?: string;
-}
+import { BasicCoinData } from "../../types"; 
 
 interface BitMEXWebSocketResponse {
   table: string;
@@ -31,7 +22,9 @@ function useBitMEXTickerWebSocket(
   defaultCurrencyDollarRate = 1
 ) {
   const [connected, setConnected] = useState(false);
-  const [tickerData, setTickerData] = useState<Record<string, TickerData>>({});
+  const [tickerData, setTickerData] = useState<Record<string, BasicCoinData>>(
+    {}
+  );
   const [error, setError] = useState<string | null>(null);
 
   const connectWebSocket = useCallback(() => {
@@ -60,23 +53,18 @@ function useBitMEXTickerWebSocket(
                 [originalSymbol]: {
                   symbol: originalSymbol,
                   current_price:
-                    instrumentData.lastPriceProtected !== undefined
-                      ? instrumentData.lastPriceProtected *
-                        defaultCurrencyDollarRate
-                      : undefined,
-                  total_volume: instrumentData.openValue,
+                    (instrumentData.lastPriceProtected ?? 0) *
+                    defaultCurrencyDollarRate,
+                  total_volume: instrumentData.openValue ?? 0,
                   high_24h:
-                    instrumentData.lastPriceProtected !== undefined
-                      ? instrumentData.lastPriceProtected *
-                        defaultCurrencyDollarRate
-                      : undefined,
+                    (instrumentData.lastPriceProtected ?? 0) *
+                    defaultCurrencyDollarRate,
                   low_24h:
-                    instrumentData.fairPrice !== undefined
-                      ? instrumentData.fairPrice * defaultCurrencyDollarRate
-                      : undefined,
-                  price_change_percentage_24h: undefined, // BitMEX doesn't provide this directly
+                    (instrumentData.fairPrice ?? 0) * defaultCurrencyDollarRate,
+                  price_change_24h: 0, // Not provided in the response
+                  price_change_percentage_24h: 0, // Not provided in the response
                   last_updated:
-                    instrumentData.timestamp ?? Date().toLocaleString(),
+                    instrumentData.timestamp ?? new Date().toLocaleString(),
                 },
               }));
             }
@@ -84,6 +72,7 @@ function useBitMEXTickerWebSocket(
         }
       } catch (err) {
         console.error("Error parsing WebSocket message:", err);
+        setError("Error parsing WebSocket message");
       }
     };
 

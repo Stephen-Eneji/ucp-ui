@@ -1,14 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-
-interface TickerData {
-  id: string;
-  symbol: string;
-  current_price: number;
-  total_volume: number;
-  price_change_24h: number;
-  price_change_percentage_24h: number;
-  last_updated: string;
-}
+import { BasicCoinData } from "../../types"; 
 
 interface CoinbasePrimeWebSocketResponse {
   channel: string;
@@ -35,7 +26,9 @@ function useCoinbasePrimeTickerWebSocket(
   portfolioId: string
 ) {
   const [connected, setConnected] = useState(false);
-  const [tickerData, setTickerData] = useState<Record<string, TickerData>>({});
+  const [tickerData, setTickerData] = useState<Record<string, BasicCoinData>>(
+    {}
+  );
   const [error, setError] = useState<string | null>(null);
 
   const connectWebSocket = useCallback(() => {
@@ -52,7 +45,7 @@ function useCoinbasePrimeTickerWebSocket(
         api_key_id: apiKeyId,
         timestamp: new Date().toISOString(),
         passphrase: passphrase,
-        signature: "SIGNATURE", // Note: You should implement proper signature generation
+        signature: "SIGNATURE", // Note: Implement proper signature generation
         portfolio_id: portfolioId,
         product_ids: symbols.map((symbol) => `${symbol.toUpperCase()}-USD`),
       };
@@ -78,12 +71,15 @@ function useCoinbasePrimeTickerWebSocket(
                   current_price:
                     parseFloat(tickerEvent.price) * defaultCurrencyDollarRate,
                   total_volume: parseFloat(tickerEvent.volume_24h),
+                  high_24h: 0, // Placeholder, adjust as needed
+                  low_24h: 0, // Placeholder, adjust as needed
                   price_change_24h:
                     parseFloat(tickerEvent.price_change_24h) *
                     defaultCurrencyDollarRate,
-                  price_change_percentage_24h:
-                    parseFloat(tickerEvent.price_change_percent_24h) * 100,
-                  last_updated: new Date(tickerEvent?.time).toLocaleString(),
+                  price_change_percentage_24h: parseFloat(
+                    tickerEvent.price_change_percent_24h
+                  ),
+                  last_updated: new Date(tickerEvent.time).toLocaleString(),
                 },
               }));
             }
@@ -91,6 +87,7 @@ function useCoinbasePrimeTickerWebSocket(
         }
       } catch (err) {
         console.error("Error parsing WebSocket message:", err);
+        setError("Error parsing WebSocket message");
       }
     };
 
