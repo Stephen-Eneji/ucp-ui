@@ -27,7 +27,7 @@ ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetti
 		<Marquee className="ucwp-coin-marquee-main-marquee-element" style={{ width: parentWidth, display:'flex', gap: '10px' }} pauseOnHover={true} speed={animationDuration} >
 			<div className={`ucwp-coin-marquee-main`}>
 				{coinList?.slice(0, settings.count).map((_coin) => {
-					const coin = { ..._coin, ...data[_coin.symbol] } ;
+					const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] }
 					return (
 						<Card key={coin.id} coinData={coin} style={{ width: cardWidth }} currency_symbol={settings.currency_symbol} />
 				)})}

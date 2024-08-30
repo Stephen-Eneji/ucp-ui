@@ -6,10 +6,11 @@ const Card001 = ({coinData, currency_symbol = "$", ...props} : {coinData: CoinDa
 	const [coin, setCoin] = useState(coinData);
 
 	useEffect(() => {
-		console.log("coin data changed", coinData)
 		setCoin(coinData);
 	}, [coinData]);
+
 	props.className = `ucwp-coin-marquee-coin-card-bounding-box ucwp-marquee-content ${props.className}`;
+	
 	return (
 		<div  {...props}>
 			<div className="ucwp-coin-marquee-coin-logo">
