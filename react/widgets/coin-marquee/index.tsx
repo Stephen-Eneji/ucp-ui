@@ -14,14 +14,13 @@ Chart.register(CategoryScale);
 
 ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetting }) => {
 	const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
-	console.log(coinList, coinList?.map(coin => coin.symbol).slice(0, settings.count))
 	const parentWidth = typeof settings.parent_width === 'number' ? `${settings.parent_width}px` : settings.parent_width;
 	const cardWidth = typeof settings.card_width === 'number' ? `${settings.card_width}px` : settings.card_width;
 	const animationDuration = (settings.speed || 3000) / (coinList?.length ?? 10)
 	const { connected, data, error } = useKrakenTickerWebSocket(
-    coinList?.map((coin) => coin.symbol).slice(0, settings.count),
-    settings?.usd_conversion_rate ?? 1
-  );
+		coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+		settings?.usd_conversion_rate ?? 1
+	);
 	console.log(connected, data, error, "binance")
 	return (
 		<Marquee className="ucwp-coin-marquee-main-marquee-element" style={{ width: parentWidth, display:'flex', gap: '10px' }} pauseOnHover={true} speed={animationDuration} >
