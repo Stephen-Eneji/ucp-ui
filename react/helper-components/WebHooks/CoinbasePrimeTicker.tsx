@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 
 interface TickerData {
+  id: string;
   symbol: string;
-  price: string;
-  volume: string;
-  change24h: string;
-  changePercent24h: string;
-  timestamp: string;
+  current_price: number;
+  total_volume: number;
+  price_change_24h: number;
+  price_change_percentage_24h: number;
+  last_updated: string;
 }
 
 interface CoinbasePrimeWebSocketResponse {
@@ -72,19 +73,17 @@ function useCoinbasePrimeTickerWebSocket(
               setTickerData((prevData) => ({
                 ...prevData,
                 [originalSymbol]: {
+                  id: originalSymbol.toLowerCase(),
                   symbol: originalSymbol,
-                  price: (
-                    parseFloat(tickerEvent.price) * defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  volume: parseFloat(tickerEvent.volume_24h).toFixed(2),
-                  change24h: (
+                  current_price:
+                    parseFloat(tickerEvent.price) * defaultCurrencyDollarRate,
+                  total_volume: parseFloat(tickerEvent.volume_24h),
+                  price_change_24h:
                     parseFloat(tickerEvent.price_change_24h) *
-                    defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  changePercent24h: (
-                    parseFloat(tickerEvent.price_change_percent_24h) * 100
-                  ).toFixed(2),
-                  timestamp: new Date(tickerEvent.time).toLocaleString(),
+                    defaultCurrencyDollarRate,
+                  price_change_percentage_24h:
+                    parseFloat(tickerEvent.price_change_percent_24h) * 100,
+                  last_updated: new Date(tickerEvent?.time).toLocaleString(),
                 },
               }));
             }
@@ -120,7 +119,7 @@ function useCoinbasePrimeTickerWebSocket(
   useEffect(() => {
     const cleanup = connectWebSocket();
     return cleanup;
-  }, []);
+  }, [connectWebSocket]);
 
   return { connected, data: tickerData, error };
 }

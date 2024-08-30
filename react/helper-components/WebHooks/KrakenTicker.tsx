@@ -2,15 +2,20 @@ import { useState, useEffect, useCallback } from "react";
 
 interface TickerData {
   symbol: string;
-  ask: string;
-  bid: string;
-  last: string;
-  volume: string;
-  low: string;
-  high: string;
-  change: string;
-  changePct: string;
-  timestamp: string;
+  name?: string;
+  image?: string;
+  current_price: number;
+  market_cap?: number;
+  market_cap_rank?: number;
+  total_volume: number;
+  high_24h: number;
+  low_24h: number;
+  price_change_24h: number;
+  price_change_percentage_24h: number;
+  circulating_supply?: number;
+  last_updated: string;
+  price_change_percentage_7d_in_currency?: number;
+  price_change_percentage_30d_in_currency?: number;
 }
 
 interface KrakenWebSocketResponse {
@@ -73,21 +78,14 @@ function useKrakenTickerWebSocket(
               ...prevData,
               [originalSymbol]: {
                 symbol: originalSymbol,
-                ask: (tickerUpdate.ask * defaultCurrencyDollarRate).toFixed(2),
-                bid: (tickerUpdate.bid * defaultCurrencyDollarRate).toFixed(2),
-                last: (tickerUpdate.last * defaultCurrencyDollarRate).toFixed(
-                  2
-                ),
-                volume: tickerUpdate.volume.toFixed(2),
-                low: (tickerUpdate.low * defaultCurrencyDollarRate).toFixed(2),
-                high: (tickerUpdate.high * defaultCurrencyDollarRate).toFixed(
-                  2
-                ),
-                change: (
-                  tickerUpdate.change * defaultCurrencyDollarRate
-                ).toFixed(2),
-                changePct: tickerUpdate.change_pct.toFixed(2),
-                timestamp: new Date().toLocaleString(),
+                current_price: tickerUpdate.last * defaultCurrencyDollarRate,
+                total_volume: tickerUpdate.volume,
+                high_24h: tickerUpdate.high * defaultCurrencyDollarRate,
+                low_24h: tickerUpdate.low * defaultCurrencyDollarRate,
+                price_change_24h:
+                  tickerUpdate.change * defaultCurrencyDollarRate,
+                price_change_percentage_24h: tickerUpdate.change_pct,
+                last_updated: new Date().toLocaleString(),
               },
             }));
           });

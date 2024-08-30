@@ -2,13 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 
 interface TickerData {
   symbol: string;
-  lastPrice: string;
-  priceChange: string;
-  priceChangePercent: string;
-  volume: string;
-  highPrice: string;
-  lowPrice: string;
-  timestamp: string;
+  current_price: number;
+  total_volume: number;
+  high_24h: number;
+  low_24h: number;
+  price_change_24h: number;
+  price_change_percentage_24h: number;
+  last_updated: string;
 }
 
 interface BinanceWebSocketResponse {
@@ -62,21 +62,15 @@ function useBinanceTickerWebSocket(
           ...prevData,
           [originalSymbol]: {
             symbol: originalSymbol,
-            lastPrice: (
-              parseFloat(data.lastPrice) * defaultCurrencyDollarRate
-            ).toFixed(2),
-            priceChange: (
-              parseFloat(data.priceChange) * defaultCurrencyDollarRate
-            ).toFixed(2),
-            priceChangePercent: parseFloat(data.priceChangePercent).toFixed(2),
-            volume: parseFloat(data.volume).toFixed(2),
-            highPrice: (
-              parseFloat(data.highPrice) * defaultCurrencyDollarRate
-            ).toFixed(2),
-            lowPrice: (
-              parseFloat(data.lowPrice) * defaultCurrencyDollarRate
-            ).toFixed(2),
-            timestamp: new Date().toLocaleString(),
+            current_price:
+              parseFloat(data.lastPrice) * defaultCurrencyDollarRate,
+            total_volume: parseFloat(data.volume),
+            high_24h: parseFloat(data.highPrice) * defaultCurrencyDollarRate,
+            low_24h: parseFloat(data.lowPrice) * defaultCurrencyDollarRate,
+            price_change_24h:
+              parseFloat(data.priceChange) * defaultCurrencyDollarRate,
+            price_change_percentage_24h: parseFloat(data.priceChangePercent),
+            last_updated: new Date().toLocaleString(),
           },
         }));
       }
@@ -100,7 +94,7 @@ function useBinanceTickerWebSocket(
   useEffect(() => {
     const cleanup = connectWebSocket();
     return cleanup;
-  }, []);
+  }, [connectWebSocket]);
 
   return { connected, data: tickerData, error };
 }

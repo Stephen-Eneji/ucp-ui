@@ -28,7 +28,6 @@ const TickerDisplay: React.FC = () => {
 
   return (
     <div>
-
       {/* a table of column , platform, status. message */}
       <table>
         <thead>
@@ -41,18 +40,18 @@ const TickerDisplay: React.FC = () => {
         <tbody>
           <tr>
             <td>Kraken</td>
-            <td>{krakenConnected ? 'Connected' : 'Disconnected'}</td>
-            <td>{krakenError  ? krakenError : 'Successfully connected'}</td>
+            <td>{krakenConnected ? "Connected" : "Disconnected"}</td>
+            <td>{krakenError ? krakenError : "Successfully connected"}</td>
           </tr>
           <tr>
             <td>BitMEX</td>
-            <td>{bitmexConnected ? 'Connected' : 'Disconnected'}</td>
-            <td>{bitmexError  ? bitmexError : 'Successfully connected'}</td>
+            <td>{bitmexConnected ? "Connected" : "Disconnected"}</td>
+            <td>{bitmexError ? bitmexError : "Successfully connected"}</td>
           </tr>
           <tr>
             <td>Binance</td>
-            <td>{binanceConnected ? 'Connected' : 'Disconnected'}</td>
-            <td>{binanceError  ? binanceError : 'Successfully connected'}</td>
+            <td>{binanceConnected ? "Connected" : "Disconnected"}</td>
+            <td>{binanceError ? binanceError : "Successfully connected"}</td>
           </tr>
         </tbody>
       </table>
@@ -75,16 +74,15 @@ const TickerDisplay: React.FC = () => {
           {Object.entries(krakenData).map(([symbol, tickerData]) => (
             <div key={symbol}>
               <h2>{symbol}</h2>
-              <p>Last Price: ${tickerData.last}</p>
-              <p>Ask: ${tickerData.ask}</p>
-              <p>Bid: ${tickerData.bid}</p>
+              <p>Current Price: ${tickerData.current_price}</p>
               <p>
-                24h Change: ${tickerData.change} ({tickerData.changePct}%)
+                24h Change: ${tickerData.price_change_24h} (
+                {tickerData.price_change_percentage_24h}%)
               </p>
-              <p>24h High: ${tickerData.high}</p>
-              <p>24h Low: ${tickerData.low}</p>
-              <p>24h Volume: {tickerData.volume}</p>
-              <p>Last Updated: {tickerData.timestamp}</p>
+              <p>24h High: ${tickerData.high_24h}</p>
+              <p>24h Low: ${tickerData.low_24h}</p>
+              <p>24h Volume: {tickerData.total_volume}</p>
+              <p>Last Updated: {tickerData.last_updated}</p>
             </div>
           ))}
         </div>
@@ -97,14 +95,11 @@ const TickerDisplay: React.FC = () => {
           {Object.entries(bitmexData).map(([symbol, tickerData]) => (
             <div key={symbol}>
               <h2>{symbol}</h2>
-              <p>Last Price: ${tickerData.lastPrice}</p>
-              <p>Ask: ${tickerData.askPrice}</p>
-              <p>Bid: ${tickerData.bidPrice}</p>
-              <p>24h Change: {tickerData.changePct}%</p>
-              <p>24h High: ${tickerData.high}</p>
-              <p>24h Low: ${tickerData.low}</p>
-              <p>24h Volume: {tickerData.volume}</p>
-              <p>Last Updated: {tickerData.timestamp}</p>
+              <p>Current Price: ${tickerData.current_price}</p>
+              <p>24h High: ${tickerData.high_24h}</p>
+              <p>24h Low: ${tickerData.low_24h}</p>
+              <p>24h Volume: {tickerData.total_volume}</p>
+              <p>Last Updated: {tickerData.last_updated}</p>
             </div>
           ))}
         </div>
@@ -117,13 +112,15 @@ const TickerDisplay: React.FC = () => {
           {Object.entries(binanceData).map(([symbol, tickerData]) => (
             <div key={symbol}>
               <h2>{symbol}</h2>
-              <p>Last Price: ${tickerData.lastPrice}</p>
-              <p>Price Change: ${tickerData.priceChange}</p>
-              <p>Price Change Percent: {tickerData.priceChangePercent}%</p>
-              <p>Volume: {tickerData.volume}</p>
-              <p>High Price: ${tickerData.highPrice}</p>
-              <p>Low Price: ${tickerData.lowPrice}</p>
-              <p>Last Updated: {tickerData.timestamp}</p>
+              <p>Current Price: ${tickerData.current_price}</p>
+              <p>
+                24h Change: ${tickerData.price_change_24h} (
+                {tickerData.price_change_percentage_24h}%)
+              </p>
+              <p>24h High: ${tickerData.high_24h}</p>
+              <p>24h Low: ${tickerData.low_24h}</p>
+              <p>24h Volume: {tickerData.total_volume}</p>
+              <p>Last Updated: {tickerData.last_updated}</p>
             </div>
           ))}
         </div>

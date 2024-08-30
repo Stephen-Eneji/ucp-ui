@@ -2,14 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 
 interface TickerData {
   symbol: string;
-  lastPrice: string;
-  bidPrice: string;
-  askPrice: string;
-  volume: string;
-  high: string;
-  low: string;
-  changePct: string;
-  timestamp: string;
+  current_price?: number;
+  total_volume?: number;
+  high_24h?: number;
+  low_24h?: number;
+  price_change_percentage_24h?: number;
+  last_updated?: string;
 }
 
 interface BitMEXWebSocketResponse {
@@ -61,27 +59,24 @@ function useBitMEXTickerWebSocket(
                 ...prevData,
                 [originalSymbol]: {
                   symbol: originalSymbol,
-                  lastPrice: (
-                    (instrumentData.lastPriceProtected ?? 0) *
-                    defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  bidPrice: (
-                    (instrumentData.fairPrice ?? 0) * defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  askPrice: (
-                    (instrumentData.markPrice ?? 0) * defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  volume: (instrumentData.openValue ?? 0).toFixed(2),
-                  high: (
-                    (instrumentData.lastPriceProtected ?? 0) *
-                    defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  low: (
-                    (instrumentData.fairPrice ?? 0) * defaultCurrencyDollarRate
-                  ).toFixed(2),
-                  changePct: "N/A", // Update or calculate changePct if necessary
-                  timestamp:
-                    instrumentData.timestamp ?? new Date().toLocaleString(),
+                  current_price:
+                    instrumentData.lastPriceProtected !== undefined
+                      ? instrumentData.lastPriceProtected *
+                        defaultCurrencyDollarRate
+                      : undefined,
+                  total_volume: instrumentData.openValue,
+                  high_24h:
+                    instrumentData.lastPriceProtected !== undefined
+                      ? instrumentData.lastPriceProtected *
+                        defaultCurrencyDollarRate
+                      : undefined,
+                  low_24h:
+                    instrumentData.fairPrice !== undefined
+                      ? instrumentData.fairPrice * defaultCurrencyDollarRate
+                      : undefined,
+                  price_change_percentage_24h: undefined, // BitMEX doesn't provide this directly
+                  last_updated:
+                    instrumentData.timestamp ?? Date().toLocaleString(),
                 },
               }));
             }
