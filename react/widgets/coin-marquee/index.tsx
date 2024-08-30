@@ -20,7 +20,7 @@ ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetti
 	const animationDuration = (settings.speed || 3000) / (coinList?.length ?? 10)
 	const { connected, data, error } = useKrakenTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
-    1
+    settings?.usd_conversion_rate ?? 1
   );
 	console.log(connected, data, error, "binance")
 	return (

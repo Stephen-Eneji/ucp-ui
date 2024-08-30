@@ -56,6 +56,7 @@ export type UCWPWidgetSetting = {
   orientation?: 'horizontal' | 'vertical';
   coins: string | string[];
   dark_mode?: 'true' | 'false' | boolean;
+  usd_conversion_rate?: number;
 };
 
 // GraphDataSetSettings type for additional graph settings
