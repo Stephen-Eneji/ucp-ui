@@ -10,26 +10,11 @@ ReactRender(({ coins, settings }) => {
   settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
   const [startCount, setStartCount] = useState<number>(0);
-  const { connected, data, error } = useKrakenTickerWebSocket(
+  const { data } = useKrakenTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
     settings?.usd_conversion_rate ?? 1
   );
 
-  const search = (e: any) => {
-    const value = e.target.value;
-    // if value is empty, 
-    if (value?.length === 0) {
-      setCoinList(coins);
-      return;
-    }
-    setCoinList(
-      searchCoin(
-        value,
-        coins.slice(startCount, startCount + (settings.count ?? 10))
-      )
-    );
-
-  };
 
   useEffect(() => {
     setCoinList(coins.slice(startCount, startCount + (settings.count ?? 10)));

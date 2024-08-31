@@ -133,5 +133,30 @@
                     }
                 }
             }
+
+            .ucwp-crypto-price-table-main-pagination{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                button {
+                    width: 60px;
+                    aspect-ratio: 1/1;
+                    border: solid 1px #03045E;
+                    border-radius: 5px;
+                    display: grid;
+                    place-items: center;
+
+                    &:hover {
+                        background: #0077b6;
+                    } 
+
+                    .ucwp-crypto-date-change-table-main-pagination-button-arrow {
+                        font-weight: 900;
+                        color: #03045E;
+                    }
+                }
+            }
         }
 }

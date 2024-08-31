@@ -4,11 +4,17 @@ import "@/styles/sass/crypto-date-change-table.scss";
 import { roundToSignificantFigures, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
+import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 
 ReactRender(({ coins, settings }) => {
   settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
   const [startCount, setStartCount] = useState<number>(0);
+  const { connected, data, error } = useKrakenTickerWebSocket(
+    coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+    settings?.usd_conversion_rate ?? 1
+  );
 
   const search = (e: any) => {
     const value = e.target.value;
@@ -51,56 +57,59 @@ ReactRender(({ coins, settings }) => {
             </tr>
           </thead>
           <tbody>
-            {coinList.slice(0, settings.count ?? 10).map((coin, index) => (
-              <tr
-                key={index}
-                data-table-row-coin={`${coin.name}---${coin.symbol}`}
-              >
-                <td>{index + 1 + startCount}</td>
-                <td>
-                  <div className="crypto-price-table-name-info">
-                    <div className="crypto-price-table-name-info-image">
-                      <img src={coin.image} alt={coin.name} />
+            {coinList.slice(0, settings.count ?? 10).map((_coin, index) => {
+              const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
+              return (
+                <tr
+                  key={index}
+                  data-table-row-coin={`${coin.name}---${coin.symbol}`}
+                >
+                  <td>{index + 1 + startCount}</td>
+                  <td>
+                    <div className="crypto-price-table-name-info">
+                      <div className="crypto-price-table-name-info-image">
+                        <img src={coin.image} alt={coin.name} />
+                      </div>
+                      <div className="crypto-price-table-name-info-name">
+                        <span>{coin.name}</span>
+                        <span>{coin.symbol}</span>
+                      </div>
                     </div>
-                    <div className="crypto-price-table-name-info-name">
-                      <span>{coin.name}</span>
-                      <span>{coin.symbol}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  {settings.currency_symbol}
-                  {coin.current_price}
-                </td>
-                <td>
-                  <PricePercentage
-                    arrowSize={12}
-                    percentage={roundToSignificantFigures(
-                      coin.price_change_percentage_24h ?? 0,
-                      4
-                    )}
-                  />
-                </td>
-                <td>
-                  <PricePercentage
-                    arrowSize={12}
-                    percentage={roundToSignificantFigures(
-                      coin.price_change_percentage_7d_in_currency ?? 0,
-                      4
-                    )}
-                  />
-                </td>
-                <td>
-                  <PricePercentage
-                    arrowSize={12}
-                    percentage={roundToSignificantFigures(
-                      coin.price_change_percentage_30d_in_currency ?? 0,
-                      4
-                    )}
-                  />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>
+                    {settings.currency_symbol}
+                    {coin.current_price}
+                  </td>
+                  <td>
+                    <PricePercentage
+                      arrowSize={12}
+                      percentage={roundToSignificantFigures(
+                        coin.price_change_percentage_24h ?? 0,
+                        4
+                      )}
+                    />
+                  </td>
+                  <td>
+                    <PricePercentage
+                      arrowSize={12}
+                      percentage={roundToSignificantFigures(
+                        coin.price_change_percentage_7d_in_currency ?? 0,
+                        4
+                      )}
+                    />
+                  </td>
+                  <td>
+                    <PricePercentage
+                      arrowSize={12}
+                      percentage={roundToSignificantFigures(
+                        coin.price_change_percentage_30d_in_currency ?? 0,
+                        4
+                      )}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <div className="ucwp-crypto-date-change-table-main-pagination">
@@ -108,13 +117,13 @@ ReactRender(({ coins, settings }) => {
             disabled={startCount === 0}
             onClick={() => setStartCount(startCount - (settings.count ?? 10))}
           >
-            Previous
+            <ArrowLeft2 size="32" className="ucwp-crypto-date-change-table-main-pagination-button-arrow" />
           </button>
           <button
             disabled={coins.length === startCount + (settings.count ?? 10)}
             onClick={() => setStartCount(startCount + (settings.count ?? 10))}
           >
-            Next
+            <ArrowRight2 size="32" className="ucwp-crypto-date-change-table-main-pagination-button-arrow" />
           </button>
         </div>
       </div>
