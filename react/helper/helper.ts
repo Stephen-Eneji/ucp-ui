@@ -17,8 +17,13 @@ export function abbreviateNumber(num: number) {
 }
 
 // round of to significant figures
-	export function roundToSignificantFigures(num: number, significantFigures: number){
+export function roundToSignificantFigures(num: number, significantFigures: number){
 	return parseFloat(num.toPrecision(significantFigures));
+}
+
+// round to decimal places
+export function roundToDecimalPlaces(num: number, decimalPlaces: number){
+	return parseFloat(num.toFixed(decimalPlaces));
 }
 
 // generate labels from chartData with the max length of the data array

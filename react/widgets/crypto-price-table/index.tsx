@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-price-table.scss'
-import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/helper";
+import { roundToDecimalPlaces, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
@@ -60,34 +60,34 @@ ReactRender(({ coins, settings }) => {
               .map((_coin, index) => {
                 const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
                 return (
-                <tr
-                  key={index}
-                  data-table-row-coin={`${coin.name}---${coin.symbol}`}
-                >
-                  <td>{index + 1 + startCount}</td>
-                  <td>
-                    <div className="crypto-price-table-name-info">
-                      <div className="crypto-price-table-name-info-image">
-                        <img src={coin.image} alt={coin.name} />
+                  <tr
+                    key={index}
+                    data-table-row-coin={`${coin.name}---${coin.symbol}`}
+                  >
+                    <td>{index + 1 + startCount}</td>
+                    <td>
+                      <div className="crypto-price-table-name-info">
+                        <div className="crypto-price-table-name-info-image">
+                          <img src={coin.image} alt={coin.name} />
+                        </div>
+                        <div className="crypto-price-table-name-info-name">
+                          <span>{coin.name}</span>
+                          <span>{coin.symbol}</span>
+                        </div>
                       </div>
-                      <div className="crypto-price-table-name-info-name">
-                        <span>{coin.name}</span>
-                        <span>{coin.symbol}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {settings.currency_symbol}
-                    {coin.current_price}
-                  </td>
-                  <td>
-                    <PricePercentage
-                      percentage={coin.price_change_percentage_24h}
-                      arrowSize={12}
-                    />
-                  </td>
-                </tr>
-              )})}
+                    </td>
+                    <td>
+                      {settings.currency_symbol}
+                      {roundToDecimalPlaces(coin.current_price, 2)}
+                    </td>
+                    <td>
+                      <PricePercentage
+                        percentage={coin.price_change_percentage_24h}
+                        arrowSize={12}
+                      />
+                    </td>
+                  </tr>
+                );})}
           </tbody>
         </table>
       </div>
