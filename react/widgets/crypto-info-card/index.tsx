@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-info-card.scss'
+import { ucwpAPIV1 } from "../../helper/api-helper";
 
-ReactRender(({ coins, settings }) => {
+function Card({ coin, settings }) {
+  const [description, setDescription] = useState<string>('')
+  useEffect(() => {
+    ucwpAPIV1.fetchData('coin-info', { coin_id: coin.id }).then((data) => {
+      setDescription(data.description.en)
+    })
+  }, [coin.id])
   return (
-    <div className={`ucwp-crypto-info-card ${settings.dark_mode ? 'ucwp-dark-mode' : ''}`}>
-      <div className="ucwp-cic-main-body">
-        {
-          coins.slice(0, settings.count ?? 10).map((coin, index) => (
-            <div className="ucwp-cic-children-main" key={index}>
+    <div className="ucwp-cic-children-main">
                 <div className="ucwp-cic-children-backdrop">
                   <div className="ucwp-cic-children-coin-logo">
                     <img src={coin.image} alt={coin.name} />
@@ -38,12 +41,21 @@ ReactRender(({ coins, settings }) => {
                     Coins History
                   </div>
                   <div className="ucwp-cic-children-coin-history-content">
-                    {/* random history about bitcoin */}
-                    Bitcoin is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries. Transactions are verified by network nodes through cryptography and recorded in a public distributed ledger called a blockchain.
+                    {description.slice(0, 500)+" ..."}
                   </div>
                 </div>  
               </div>
             </div>
+  )
+}
+ReactRender(({ coins, settings }) => {
+  
+  return (
+    <div className={`ucwp-crypto-info-card ${settings.dark_mode ? 'ucwp-dark-mode' : ''}`}>
+      <div className="ucwp-cic-main-body">
+        {
+          coins.slice(0, settings.count ?? 10).map((coin, index) => (
+            <Card key={index} coin={coin} settings={settings}/>
           ))
         }
       </div>

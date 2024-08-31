@@ -2,7 +2,7 @@ export default {
     "settings": {
         "card": "card-003",
         "pro": true,
-        "count": "10",
+        "count": 5,
         "card_width": "200px",
         "parent_width": "100%",
         "speed": "10000",
@@ -10,7 +10,7 @@ export default {
         "data_interval": "daily",
         "currency_symbol": "$",
         'no_of_days': 7,
-        'dark_mode': true,
+        'dark_mode': false,
         'search_placeholder': "Search for a coin",
     },
     "crypto_payments": [

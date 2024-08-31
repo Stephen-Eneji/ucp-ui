@@ -7,10 +7,14 @@ import React from "react";
 
 
 const Card003 = ({coinData, currency_symbol = "$", graph_days_count = 7, max_point_graph = 15, ...props} : {coinData: CoinData, currency_symbol?: string, graph_days_count ?: number, max_point_graph ?: number} & HTMLProps<HTMLDivElement>) => {
-	const [coin, _setCoin] = useState(coinData);
+	const [coin, setCoin] = useState(coinData);
 	const [graphData, setGraphData] = useState<GraphData[]>([]);
   	const [graphLabels, setGraphLabels] = useState<string[]>([]); 
 	const [graphFetchCount, setGraphFetchCount] = useState(0);
+
+	useEffect(() => {
+		setCoin(coinData);
+	}, [coinData]);
 
 	// use effect to update the graph data from api /wp-json/ultimate-crypto-widget/v1/coin-chart-data?coin_id={coin.id} with axios
 	useEffect(() => {
@@ -69,7 +73,7 @@ const Card003 = ({coinData, currency_symbol = "$", graph_days_count = 7, max_poi
         }
       });
 
-	}, [coinData, graphFetchCount]);
+	}, []);
 
 	const defaultDataSetSettings = {
 		backgroundColor: 'rgba(255, 99, 132, 0.2)',
