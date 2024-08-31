@@ -5,11 +5,17 @@ import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
+import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
 
 ReactRender(({ coins, settings }) => {
   settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
   const [startCount, setStartCount] = useState<number>(0);
+  const { connected, data, error } = useKrakenTickerWebSocket(
+    coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+    settings?.usd_conversion_rate ?? 1
+  );
+
 
   const search = (e: any) => {
     const value = e.target.value;
@@ -62,7 +68,9 @@ ReactRender(({ coins, settings }) => {
             </tr>
           </thead>
           <tbody>
-            {coinList.slice(0, settings.count ?? 10).map((coin, index) => (
+            {coinList.slice(0, settings.count ?? 10).map((_coin, index) => {
+              const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
+              return (
               <tr
                 key={index}
                 data-table-row-coin={`${coin.name}---${coin.symbol}`}
@@ -95,7 +103,7 @@ ReactRender(({ coins, settings }) => {
                   <td>{abbreviateNumber(coin.circulating_supply)}</td>
                 </>
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
         <div className="ucwp-crypto-price-table-main-pagination">
