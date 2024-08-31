@@ -9,6 +9,7 @@ import Card001 from "./cards/card-001";
 import Card002 from "./cards/card-002";
 import {ArrowLeft2, ArrowRight2} from "iconsax-react";
 import React from "react";
+import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
 
 
 Chart.register(CategoryScale);
@@ -25,6 +26,10 @@ const getCard = (card: string) => {
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
     const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
     const [direction, setDirection] = useState<"left" | "right">("left");
+    const { connected, data, error } = useKrakenTickerWebSocket(
+      coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+      settings?.usd_conversion_rate ?? 1
+    );
     const Card = getCard(settings?.card ?? "card-001");
     const animationDuration =
       (settings.speed || 3000) / (coinList?.length ?? 10);
@@ -67,13 +72,15 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
           >
             {coinList
               ?.slice(0, settings.count)
-              .map((coin) => (
+              .map((_coin) => {
+                const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
+                return (
                 <Card
                   key={coin.id}
                   coinData={coin}
                   currency_symbol={settings.currency_symbol}
                 />
-              ))}
+              )})}
           </div>
         </Marquee>
       </div>

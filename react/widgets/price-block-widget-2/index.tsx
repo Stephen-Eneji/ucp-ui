@@ -8,6 +8,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { ucwpAPIV1 } from "../../helper/api-helper";
 import { roundToSignificantFigures } from "../../helper/helper";
+import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
 
 
 
@@ -160,15 +161,30 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
 }
 
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
+  const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
+  // const { connected, data, error } = useKrakenTickerWebSocket(
+  //   coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+  //   settings?.usd_conversion_rate ?? 1
+  // );
   return (
     <div
       className="ucwp-price-block-widget-2"
       style={{ width: settings.parent_width }}
     >
       <div className="ucwp-pbw-2-main-body">
-        {coins.slice(0, settings.count ?? 10).map((coin, index) => (
-          <Card key={index} coin={coin} no_of_days={settings.no_of_days} currency_symbol={settings.currency_symbol} dark_mode={settings.dark_mode == true || settings.dark_mode == 'true' }/>
-        ))}
+        {coinList.slice(0, settings.count ?? 10).map((_coin, index) => {
+          const coin = { ..._coin, /*...data[_coin.symbol.toUpperCase()]*/ };
+          return (
+          <Card
+            key={index}
+            coin={coin}
+            no_of_days={settings.no_of_days}
+            currency_symbol={settings.currency_symbol}
+            dark_mode={
+              settings.dark_mode == true || settings.dark_mode == "true"
+            }
+          />
+        )})}
       </div>
     </div>
   );

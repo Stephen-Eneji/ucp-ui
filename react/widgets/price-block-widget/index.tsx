@@ -5,6 +5,7 @@ import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 import { roundToSignificantFigures } from "../../helper/helper";
 import { ucwpAPIV1 } from "../../helper/api-helper";
+import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
 
 type CurrencyPriceSet = {
   gbp?: number;
@@ -102,10 +103,15 @@ function CoinCard({ coin, settings }) {
 }
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
   const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
+  const { connected, data, error } = useKrakenTickerWebSocket(
+    coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+    settings?.usd_conversion_rate ?? 1
+  );
   return (
     <div className="ucwp-price-block-widget">
         {
-          coinList.slice(0, settings.count ?? 10).map((coin, index) => {
+          coinList.slice(0, settings.count ?? 10).map((_coin, index) => {
+            const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
             return (
               <CoinCard key={index} coin={coin} settings={settings} />
             );
