@@ -3,7 +3,6 @@ import "@/styles/sass/crypto-price-picker.scss";
 import { UCWPWidgetSetting, CoinData } from "../../types";
 import ReactRender from "../../helper-components/react-wrapper";
 import Card from "./cards/card-001";
-
 import { CategoryScale } from "chart.js";
 import React from "react";
 import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";

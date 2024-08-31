@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/crypto-info-card.scss'
 import { ucwpAPIV1 } from "../../helper/api-helper";
+import { CoinData } from "../../types";
 
 function Card({ coin, settings }) {
   const [description, setDescription] = useState<string>('')
@@ -49,16 +50,19 @@ function Card({ coin, settings }) {
   )
 }
 ReactRender(({ coins, settings }) => {
+  const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []);
   
   return (
-    <div className={`ucwp-crypto-info-card ${settings.dark_mode ? 'ucwp-dark-mode' : ''}`}>
+    <div
+      className={`ucwp-crypto-info-card ${
+        settings.dark_mode ? "ucwp-dark-mode" : ""
+      }`}
+    >
       <div className="ucwp-cic-main-body">
-        {
-          coins.slice(0, settings.count ?? 10).map((coin, index) => (
-            <Card key={index} coin={coin} settings={settings}/>
-          ))
-        }
+        {coinList.slice(0, settings.count ?? 10).map((coin, index) => (
+          <Card key={index} coin={coin} settings={settings} />
+        ))}
       </div>
     </div>
-  )
+  );
 })
