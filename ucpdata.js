@@ -2,7 +2,7 @@ export default {
     "settings": {
         "card": "card-003",
         "pro": true,
-        "count": 5,
+        "count": 10,
         "card_width": "200px",
         "parent_width": "100%",
         "speed": "10000",
