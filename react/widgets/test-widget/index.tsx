@@ -5,6 +5,7 @@ import {
   useBinanceTickerWebSocket,
 } from "../../helper-components/WebHooks";
 import ReactRender from "../../helper-components/react-wrapper";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 const TickerDisplay: React.FC = () => {
   // Use both hooks
@@ -25,6 +26,8 @@ const TickerDisplay: React.FC = () => {
     data: binanceData,
     error: binanceError,
   } = useBinanceTickerWebSocket(["BTC", "ETH"]);
+
+  const { connected, data, error } = useBinanceStreamTickerWebSocket(["BTC", "ETH"]);
 
   return (
     <div>
@@ -52,6 +55,11 @@ const TickerDisplay: React.FC = () => {
             <td>Binance</td>
             <td>{binanceConnected ? "Connected" : "Disconnected"}</td>
             <td>{binanceError ? binanceError : "Successfully connected"}</td>
+          </tr>
+          <tr>
+            <td>Binance Stream</td>
+            <td>{connected ? "Connected" : "Disconnected"}</td>
+            <td>{error ? error : "Successfully connected"}</td>
           </tr>
         </tbody>
       </table>
@@ -110,6 +118,27 @@ const TickerDisplay: React.FC = () => {
         <div>
           <h1>Binance Ticker Data</h1>
           {Object.entries(binanceData).map(([symbol, tickerData]) => (
+            <div key={symbol}>
+              <h2>{symbol}</h2>
+              <p>Current Price: ${tickerData.current_price}</p>
+              <p>
+                24h Change: ${tickerData.price_change_24h} (
+                {tickerData.price_change_percentage_24h}%)
+              </p>
+              <p>24h High: ${tickerData.high_24h}</p>
+              <p>24h Low: ${tickerData.low_24h}</p>
+              <p>24h Volume: {tickerData.total_volume}</p>
+              <p>Last Updated: {tickerData.last_updated}</p>
+            </div>
+          ))}
+        </div>
+      )}
+        
+      {/* Display Binance Stream ticker data */}
+      {connected && !error && (
+        <div>
+          <h1>Binance Stream Ticker Data</h1>
+          {Object.entries(data).map(([symbol, tickerData]) => (
             <div key={symbol}>
               <h2>{symbol}</h2>
               <p>Current Price: ${tickerData.current_price}</p>
