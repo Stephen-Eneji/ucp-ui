@@ -1,6 +1,6 @@
 import {CoinData, GraphData} from "../types";
 
-export function abbreviateNumber(num: number, from: number = 1, useCommas: boolean = false): string {
+export function abbreviateNumber(num: number, from: number = 1, useCommas: boolean = true): string {
     const abbreviations = [
         { value: 1e12, symbol: 'T' },
         { value: 1e9, symbol: 'B' },
