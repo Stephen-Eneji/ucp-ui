@@ -75,8 +75,9 @@ module.exports = {
 		],
 	},
 	optimization: {
+		// splitChunks: false,
 		splitChunks: {
-			chunks: 'all',
+			// chunks: 'all',
 			cacheGroups: {
 				vendors: {
 					test: /[\\/]node_modules[\\/]|[\\/]react[\\/]helper[\\/]/, // target node
