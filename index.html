@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="http://localhost:35729/livereload.js"></script>
 
     <!-- For Google Font 1-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -283,15 +284,6 @@
     };
     let lastSelectedWidget = null;
 
-    // Load the select options
-    const select = document.getElementById('ucwp-select');
-    Object.keys(widgets).forEach(key => {
-        const option = document.createElement('option');
-        option.value = key;
-        option.text = widgets[key].display_name;
-        select.appendChild(option);
-    });
-
     // Function to load widget
     function loadWidget(widgetKey) {
         const widget = widgets[widgetKey];
@@ -315,8 +307,21 @@
             loadScript(`assets/react-build/widgets/${widget.view}/index.js`, {id:`react-build-script`})
             // Store last selected widget
             lastSelectedWidget = widgetKey;
+            // Update URL with query parameter
+            const url = new URL(window.location);
+            url.searchParams.set('widget', widgetKey);
+            window.history.pushState({}, '', url);
         }
     }
+
+    // Load the select options
+    const select = document.getElementById('ucwp-select');
+    Object.keys(widgets).forEach(key => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.text = widgets[key].display_name;
+        select.appendChild(option);
+    });
 
     // Add on change event to the select
     select.addEventListener('change', (e) => {
@@ -328,6 +333,21 @@
     reloadButton.addEventListener('click', () => {
         if (lastSelectedWidget) {
             loadWidget(lastSelectedWidget);
+        }
+    });
+
+    // Function to get query parameter
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Load widget based on query parameter on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const widgetParam = getQueryParam('widget');
+        if (widgetParam && widgets[widgetParam]) {
+            select.value = widgetParam;
+            loadWidget(widgetParam);
         }
     });
 </script>

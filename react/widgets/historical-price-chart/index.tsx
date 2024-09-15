@@ -20,7 +20,6 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 	const [graphFetchCount, setGraphFetchCount] = useState(0);
 	const graphColor = coinData.price_change_percentage_24h > 0 ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)'
 	// parse no of days and max point graph to integer if string is passed
-	console.log(`parsing no of days ${no_of_days} and max point graph ${max_point_graph}`);
 	no_of_days = typeof no_of_days === 'string' ? parseInt(no_of_days) : no_of_days;
 	max_point_graph = typeof max_point_graph === 'string' ? parseInt(max_point_graph) : max_point_graph;
 	const defaultDataSetSettings = {
