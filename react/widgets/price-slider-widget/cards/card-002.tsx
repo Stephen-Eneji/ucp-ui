@@ -1,8 +1,9 @@
+import React from "react";
 import {CoinData} from "../../../types";
 import {HTMLProps, useState} from "react";
 
 const Card002 = ({coinData, currency_symbol = "$", ...props} : {coinData: CoinData, currency_symbol?: string} & HTMLProps<HTMLDivElement>) => {
-	const [coin, _] = useState(coinData);
+	const coin = coinData;
 	props.className = `ucwp-price-slider-card ${props?.className}`;
 	return (
 		<div {...props}>

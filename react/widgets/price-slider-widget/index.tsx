@@ -9,7 +9,7 @@ import Card001 from "./cards/card-001";
 import Card002 from "./cards/card-002";
 import {ArrowLeft2, ArrowRight2} from "iconsax-react";
 import React from "react";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 
 Chart.register(CategoryScale);
@@ -26,7 +26,7 @@ const getCard = (card: string) => {
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
     const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
     const [direction, setDirection] = useState<"left" | "right">("left");
-    const { connected, data, error } = useKrakenTickerWebSocket(
+    const { connected, data, error } = useBinanceStreamTickerWebSocket(
       coinList?.map((coin) => coin.symbol).slice(0, settings.count),
       settings?.usd_conversion_rate ?? 1
     );

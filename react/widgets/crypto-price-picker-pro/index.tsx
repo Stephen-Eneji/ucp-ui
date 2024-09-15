@@ -8,7 +8,7 @@ import Card003 from "./cards/card-003";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import React from "react";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 Chart.register(CategoryScale);
 const getCard = (card: string) => {
@@ -27,7 +27,7 @@ ReactRender(
   ({ coins, settings }: { coins: CoinData[]; settings: UCWPWidgetSetting }) => {
     const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
     const Card = getCard(settings.card ?? "card-001");
-    const { connected, data, error } = useKrakenTickerWebSocket(
+    const { connected, data, error } = useBinanceStreamTickerWebSocket(
       coinList?.map((coin) => coin.symbol).slice(0, settings.count),
       settings?.usd_conversion_rate ?? 1
     );

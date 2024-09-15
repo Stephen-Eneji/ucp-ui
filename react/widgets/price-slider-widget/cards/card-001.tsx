@@ -1,8 +1,14 @@
+import React, { useEffect } from "react";
 import {CoinData} from "../../../types";
 import {HTMLProps, useState} from "react";
 
 const Card001 = ({coinData, currency_symbol = "$", ...props} : {coinData: CoinData, currency_symbol?: string} & HTMLProps<HTMLDivElement>) => {
-	const [coin, _] = useState(coinData);
+	const [coin, setCoinList] = useState(coinData);
+
+	useEffect(() => {
+		setCoinList(coinData);
+	}, [coinData]);
+
 	props.className = `ucwp-price-slider-card ${props?.className}`;
 	return (
 		<div {...props}>

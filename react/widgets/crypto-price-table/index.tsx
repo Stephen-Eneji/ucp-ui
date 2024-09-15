@@ -4,13 +4,13 @@ import '@/styles/sass/crypto-price-table.scss'
 import { roundToDecimalPlaces, searchCoin } from "../../helper/helper";
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 ReactRender(({ coins, settings }) => {
   settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
   const [startCount, setStartCount] = useState<number>(0);
-  const { data } = useKrakenTickerWebSocket(
+  const { data } = useBinanceStreamTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
     settings?.usd_conversion_rate ?? 1
   );

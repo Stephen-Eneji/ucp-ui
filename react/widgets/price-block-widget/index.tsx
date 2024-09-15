@@ -5,7 +5,7 @@ import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 import { roundToSignificantFigures } from "../../helper/helper";
 import { ucwpAPIV1 } from "../../helper/api-helper";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 type CurrencyPriceSet = {
   gbp?: number;
@@ -103,7 +103,7 @@ function CoinCard({ coin, settings }) {
 }
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
   const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
-  const { connected, data, error } = useKrakenTickerWebSocket(
+  const { connected, data, error } = useBinanceStreamTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
     settings?.usd_conversion_rate ?? 1
   );

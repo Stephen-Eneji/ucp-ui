@@ -5,13 +5,13 @@ import { abbreviateNumber, levenshteinDistance, searchCoin } from "../../helper/
 import { CoinData } from "../../types";
 import PricePercentage from "../../helper-components/PricePercentage";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 ReactRender(({ coins, settings }) => {
   settings.count = parseInt(settings.count ?? "10");
   const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
   const [startCount, setStartCount] = useState<number>(0);
-  const { connected, data, error } = useKrakenTickerWebSocket(
+  const { connected, data, error } = useBinanceStreamTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
     settings?.usd_conversion_rate ?? 1
   );

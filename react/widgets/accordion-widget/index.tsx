@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactRender from "../../helper-components/react-wrapper";
 import '@/styles/sass/accordion-widget.scss'
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
 import { UCWPWidgetSetting, CoinData, GraphData } from "../../types";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";import {
@@ -16,6 +15,7 @@ import { abbreviateNumber, roundToSignificantFigures } from "../../helper/helper
 import { ucwpAPIV1 } from "../../helper/api-helper";
 import Graph from "../../helper-components/Graph";
 import PricePercentage from "../../helper-components/PricePercentage";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 Chart.register(CategoryScale);
 
 
@@ -61,7 +61,6 @@ function CoinCard({
   };
 
   useEffect(() => {
-    console.log("useEffect called , no of days ==>", no_of_days);
     ucwpAPIV1
       .fetchData<{ prices: [number, number][] }>("coin-chart-data", {
         coin_id: coin.id,
@@ -127,7 +126,7 @@ function CoinCard({
           );
         }
       });
-  }, [coin, graphFetchCount]);
+  }, [graphFetchCount]);
 
   return (
     <AccordionItem className="ucwp-accordion-item" uuid={uuid}>
@@ -179,11 +178,10 @@ function CoinCard({
 
 ReactRender(({ coins, settings }: { coins: CoinData[], settings: UCWPWidgetSetting }) => {
   const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
-  const { connected, data, error } = useKrakenTickerWebSocket(
+  const { connected, data, error } = useBinanceStreamTickerWebSocket(
     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
     settings?.usd_conversion_rate ?? 1
   );
-  console.log(settings, "settings")
   return (
     <div className="ucwp-accordion-widget">
       <Accordion

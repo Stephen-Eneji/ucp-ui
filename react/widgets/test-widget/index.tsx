@@ -3,9 +3,9 @@ import {
   useKrakenTickerWebSocket,
   useBitMEXTickerWebSocket,
   useBinanceTickerWebSocket,
+  useBinanceStreamTickerWebSocket,
 } from "../../helper-components/WebHooks";
 import ReactRender from "../../helper-components/react-wrapper";
-import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 const TickerDisplay: React.FC = () => {
   // Use both hooks

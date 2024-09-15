@@ -8,7 +8,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { ucwpAPIV1 } from "../../helper/api-helper";
 import { roundToSignificantFigures } from "../../helper/helper";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 
 
@@ -107,7 +107,7 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
           );
         }
       });
-  }, [coin, graphFetchCount]);
+  }, [ graphFetchCount]);
 
   return (
     <div className={`ucwp-pbw-main-card ${dark_mode ? 'ucwp-pbw-dark-mode' : ''}`}>
@@ -162,10 +162,10 @@ function Card({ coin, no_of_days = 7, max_point_graph = 15, currency_symbol = "$
 
 ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
   const [coinList, _] = useState<CoinData[]>(coins ?? []); // Initialize with props
-  // const { connected, data, error } = useKrakenTickerWebSocket(
-  //   coinList?.map((coin) => coin.symbol).slice(0, settings.count),
-  //   settings?.usd_conversion_rate ?? 1
-  // );
+  const { connected, data, error } = useBinanceStreamTickerWebSocket(
+    coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+    settings?.usd_conversion_rate ?? 1
+  );
   return (
     <div
       className="ucwp-price-block-widget-2"
@@ -173,7 +173,7 @@ ReactRender<{ coins: CoinData[] }>(({ coins, settings }) => {
     >
       <div className="ucwp-pbw-2-main-body">
         {coinList.slice(0, settings.count ?? 10).map((_coin, index) => {
-          const coin = { ..._coin, /*...data[_coin.symbol.toUpperCase()]*/ };
+          const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()]};
           return (
           <Card
             key={index}

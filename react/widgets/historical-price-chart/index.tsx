@@ -7,6 +7,7 @@ import { CategoryScale } from "chart.js";
 import {abbreviateNumber, roundToSignificantFigures} from "../../helper/helper";
 import Graph from "../../helper-components/Graph";
 import {ucwpAPIV1} from "../../helper/api-helper";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 
 Chart.register(CategoryScale);
@@ -43,18 +44,7 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 				ticks: {
 					callback: function(value: number, index: number, values: number[]) {
 						let numStr = `${currency_symbol}`;
-						// if no lesser than 1 round of to significant figures
-						if(value < 1){
-							numStr += roundToSignificantFigures(value, 3);
-						}
-						// if greater than >= 1m abbreviate the number
-						else if(value >= 1e6){
-							numStr += abbreviateNumber(value);
-						}
-						else {
-							// number with separator
-							numStr += value.toLocaleString();
-						}
+						numStr += abbreviateNumber(value, 10e5);
 						return numStr;
 					}
 				}
@@ -67,7 +57,6 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 
 	// use effect to update the graph data from api /wp-json/ultimate-crypto-widget/v1/coin-chart-data?coin_id={coin.id} with axios
 	useEffect(() => {
-		console.log("useEffect called , no of days ==>", no_of_days);
 		ucwpAPIV1.fetchData<{prices : [number, number][]}>('coin-chart-data', {coin_id :coinData.id, days: no_of_days}).then((data) => {
 			let newData : ([number, number] | null)[] = data?.prices?.map((_price) => {
 				const time = new Date(_price?.[0]);
@@ -118,7 +107,7 @@ const Card = ({coinData, currency_symbol = "$", no_of_days = 7,  max_point_graph
 			}
 		});
 
-	}, [coinData, graphFetchCount]);
+	}, [graphFetchCount]);
 
 	props.className = `ucwp-historical-price-chart-card ${props?.className}`;
 	return (
@@ -174,21 +163,27 @@ ReactRender(
         : settings.parent_width;
     const darkMode = settings?.dark_mode == "true";
     let coin = settings.coins;
-    console.log(coin);
+	const { connected, data, error } = useBinanceStreamTickerWebSocket(
+     coinList?.map((coin) => coin.symbol).slice(0, settings.count),
+     settings?.usd_conversion_rate ?? 1
+   	);
     return (
       <div
         className="ucwp-historical-price-chart-widget"
         style={{ width: parentWidth }}
       >
-        {coinList.map((coin, index) => (
-          <Card
-            key={index}
-            coinData={coin}
-            className={darkMode ? "ucwp-his-dark" : ""}
-            no_of_days={settings.no_of_days}
-            currency_symbol={settings.currency_symbol}
-          />
-        ))}
+        {coinList.map((_coin, index) => {
+			const coin = { ..._coin, ...data[_coin.symbol.toUpperCase()] };
+			return (
+			<Card
+				key={index}
+				coinData={coin}
+				className={darkMode ? "ucwp-his-dark" : ""}
+				no_of_days={settings.no_of_days}
+				currency_symbol={settings.currency_symbol}
+			/>
+			)}
+		)}
       </div>
     );
   }

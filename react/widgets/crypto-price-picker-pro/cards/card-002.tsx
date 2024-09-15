@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CoinData } from "../../../types";
 import { HTMLProps, useState } from "react";
 
@@ -11,6 +11,9 @@ const Card002 = ({
   currency_symbol?: string;
 } & HTMLProps<HTMLDivElement>) => {
   const [coin, setCoin] = useState(coinData);
+  useEffect(() => {
+    setCoin(coinData);
+  }, [coinData]);
   props.className = `ucwp-crypto-picker-card-coin-bounding-box-card-002 ${props.className}`;
   return (
     <div {...props}>

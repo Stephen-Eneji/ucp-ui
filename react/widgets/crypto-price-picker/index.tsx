@@ -5,12 +5,12 @@ import ReactRender from "../../helper-components/react-wrapper";
 import Card from "./cards/card-001";
 import { CategoryScale } from "chart.js";
 import React from "react";
-import useKrakenTickerWebSocket from "../../helper-components/WebHooks/KrakenTicker";
+import useBinanceStreamTickerWebSocket from "../../helper-components/WebHooks/BinanceStreamTicker";
 
 ReactRender(
   ({ coins, settings }: { coins: CoinData[]; settings: UCWPWidgetSetting }) => {
     const [coinList, setCoinList] = useState<CoinData[]>(coins ?? []); // Initialize with props
-    const { connected, data, error } = useKrakenTickerWebSocket(
+    const { connected, data, error } = useBinanceStreamTickerWebSocket(
       coinList?.map((coin) => coin.symbol).slice(0, settings.count),
       settings?.usd_conversion_rate ?? 1
     );
