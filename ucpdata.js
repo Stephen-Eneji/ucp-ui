@@ -10,7 +10,7 @@ export default {
         "data_interval": "daily",
         "currency_symbol": "$",
         'no_of_days': 7,
-        'dark_mode': false,
+        'dark_mode': true,
         'search_placeholder': "Search for a coin",
     },
     "crypto_payments": [
