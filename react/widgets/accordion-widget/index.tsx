@@ -132,7 +132,9 @@ function CoinCard({
     <AccordionItem className="ucwp-accordion-item" uuid={uuid}>
       <AccordionItemHeading className="ucwp-accordion-item-heading">
         <AccordionItemButton className="ucwp-accordion-item-button">
-          <div className="accordion-backdrop-wrapper"></div>
+          <div className="accordion-backdrop-wrapper">
+            <img src={coin.image} alt={coin.name} />
+          </div>
           <div className="accordion-title-wrapper">
             <h2>
               {coin.name}({coin.symbol.toUpperCase()})
