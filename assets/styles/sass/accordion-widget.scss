@@ -6,12 +6,19 @@
         flex-direction: column;
     }
 
+
     .ucwp-accordion-item {
         width: 100%;
         border: 1px solid #0077B6;
         background:#EFF7FB;
         color : #03045E;
         font-family: 'Poppins', sans-serif;
+
+        &.ucwp-accordion-dark-mode {
+            background: #353B3E;
+            color: #0077B6;
+
+        }
 
         .ucwp-accordion-item-heading {
             width: 100%;

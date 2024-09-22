@@ -129,7 +129,7 @@ function CoinCard({
   }, [graphFetchCount]);
 
   return (
-    <AccordionItem className="ucwp-accordion-item" uuid={uuid}>
+    <AccordionItem className={`ucwp-accordion-item ${settings.dark_mode ? 'ucwp-accordion-dark-mode' : ''}`} uuid={uuid}>
       <AccordionItemHeading className="ucwp-accordion-item-heading">
         <AccordionItemButton className="ucwp-accordion-item-button">
           <div className="accordion-backdrop-wrapper">
