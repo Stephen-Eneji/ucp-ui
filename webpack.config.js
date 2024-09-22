@@ -29,7 +29,8 @@ const entries = { ...getEntries(), ...getEntries('react') };
 console.log("entries gotten, script about to start")
 module.exports = {
 	...defaults,
-	mode : 'development',
+	mode: 'development',
+	devtool: 'source-map',
 	externals: {
 		// '@wordpress/element': ['wp', 'element'],
 		// react: ['React'],
