@@ -45,6 +45,21 @@ export default {
         "coins": [
         ]
     },
+    "default_currencies_rate": {
+        "usd": 1,
+        "eur": 0.85,
+        "gbp": 0.72,
+        "cad": 1.25,
+        "ngn": 411.5,
+        
+    },
+    "default_currencies_symbol": {
+        "usd": "$",
+        "eur": "€",
+        "gbp": "£",
+        "cad": "C$",
+        "ngn": "₦",
+    },
     
     "coins": [
         {
