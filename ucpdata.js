@@ -5,12 +5,12 @@ export default {
         "count": 10,
         "card_width": "200px",
         "parent_width": "100%",
-        "speed": "10000",
+        "speed": "1000",
         "default_currency": "usd",
         "data_interval": "daily",
         "currency_symbol": "$",
         'no_of_days': 7,
-        'dark_mode': true,
+        'dark_mode': false,
         'search_placeholder': "Search for a coin",
     },
     "crypto_payments": [
@@ -60,6 +60,53 @@ export default {
         "cad": "C$",
         "ngn": "₦",
     },
+    "news": [
+        {
+            "title": "Ripple Price Analysis: XRP/USD Bulls Eyeing $0.40",
+            "source": "FXStreet",
+            "image": "https://www.fxstreet.com/cdn/fxstreet/images/og/fxstreet-og.jpg",
+            "url": "https://www.fxstreet.com/cryptocurrencies/news/ripple-price-analysis-xrp-usd-bulls-eyeing-0-40-202407200830",
+            "short_description": "Ripple price is trading in the green, up 1.5% on the day. XRP/USD is eyeing $0.40 in the near term, but the immediate resistance at $0.35 must come down first.",
+            "date": "2024-07-20T08:30:00Z",
+            "tags": ["Ripple", "XRP", "Cryptocurrency", "Price Analysis"]
+        },
+        {
+            "title": "Ethereum 2.0 Staking Update: Over 24 Million ETH Locked",
+            "source": "CoinTelegraph",
+            "image": "https://s3.cointelegraph.com/uploads/2023-07/ethereum_2.0_og.jpg",
+            "url": "https://cointelegraph.com/news/ethereum-2-0-staking-update-over-24-million-eth-locked",
+            "short_description": "With Ethereum 2.0 on the horizon, over 24 million ETH has been staked, showing continued community support for the transition to Proof-of-Stake.",
+            "date": "2024-07-19T12:45:00Z",
+            "tags": ["Ethereum", "ETH", "Blockchain", "Staking"]
+        },
+        {
+            "title": "Bitcoin Dominance Surges as Altcoins Struggle to Keep Up",
+            "source": "CryptoSlate",
+            "image": "https://cryptoslate.com/wp-content/uploads/2023/06/bitcoin-dominance.jpg",
+            "url": "https://cryptoslate.com/bitcoin-dominance-surges-as-altcoins-struggle-to-keep-up",
+            "short_description": "Bitcoin's market dominance has risen to 48%, as the leading cryptocurrency outperforms most altcoins in the current market conditions.",
+            "date": "2024-07-21T10:15:00Z",
+            "tags": ["Bitcoin", "BTC", "Cryptocurrency", "Market Analysis"]
+        },
+        {
+            "title": "Cardano's Smart Contracts Reach New Milestone with 5000+ Contracts Deployed",
+            "source": "CoinDesk",
+            "image": "https://www.coindesk.com/arc/outboundfeeds/coin-desk-og.jpg",
+            "url": "https://www.coindesk.com/news/cardano-smart-contracts-reach-new-milestone",
+            "short_description": "Cardano's blockchain has now surpassed 5,000 deployed smart contracts, indicating growing developer interest and usage of its platform.",
+            "date": "2024-07-18T09:00:00Z",
+            "tags": ["Cardano", "ADA", "Blockchain", "Smart Contracts"]
+        },
+        {
+            "title": "Polkadot Integrates with Chainlink for Enhanced Cross-Chain Oracles",
+            "source": "The Block",
+            "image": "https://www.theblock.co/wp-content/uploads/2023/05/polkadot-chainlink-og.jpg",
+            "url": "https://www.theblock.co/news/polkadot-integrates-with-chainlink",
+            "short_description": "Polkadot has officially integrated Chainlink's oracle services, enhancing its cross-chain communication capabilities and securing data feeds for DeFi applications.",
+            "date": "2024-07-20T14:20:00Z",
+            "tags": ["Polkadot", "Chainlink", "Blockchain", "DeFi", "Oracles"]
+        }
+    ],
     
     "coins": [
         {

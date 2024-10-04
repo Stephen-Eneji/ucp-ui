@@ -41,6 +41,23 @@ export interface CoinData extends BasicCoinData {
   price_change_percentage_30d_in_currency?: number;
 }
 
+export interface CoinDataWithSparkline extends CoinData {
+  sparkline_in_7d: {
+    price: number[];
+  };
+}
+
+export interface NewsData {
+  title: string;
+  source: string;
+  image: string;
+  url: string;
+  short_description: string;
+  date: string;
+  tags: string[];
+}
+
+
 // UCWPWidgetSetting type
 export type UCWPWidgetSetting = {
   type: string;

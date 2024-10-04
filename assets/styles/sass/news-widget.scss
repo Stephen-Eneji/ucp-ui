@@ -1,0 +1,39 @@
+/* Styles for news-widget */
+ .ucwp-news-widget{
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    
+    $secondary-color: #0077B6;
+    $primary-color: #353B3E;
+    
+    background-color: $secondary-color;
+    border : 1px solid $primary-color;
+    
+    a {
+        color: $primary-color;
+        text-decoration: none;
+    }
+
+    //dark mode class
+    &.ucwp-news-widget-dark-mode {
+        background-color: $primary-color;
+        border : 1px solid $secondary-color;
+
+        a {
+            color: $secondary-color;
+            text-decoration: none;
+        }
+    }
+
+
+    .ucwp-news-widget-main {
+        display: flex;
+        gap: 65px;
+        height: 76px;
+        justify-content: left;
+        align-items: center;
+
+    }
+}
